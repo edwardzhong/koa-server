@@ -1,0 +1,45 @@
+h1 {
+  text-align: center;
+}
+
+.form {
+  padding: 20px;
+  width: 500px;
+  margin: 0 auto;
+}
+
+.content {
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  overflow-y: scroll;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.content p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.content time {
+  display: inline-block;
+  width: 58px;
+  color: #aaa;
+}
+
+.content span:nth-of-type(1) {
+  padding: 4px;
+}
+
+.content span:nth-of-type(2) {
+  color: #555;
+}
+
+.info {
+  color: #d00;
+}
+
+.input {
+  width: 100%;
+}

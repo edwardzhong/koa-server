@@ -1,0 +1,32 @@
+<div class="user-info">
+    {% if isSelf %}
+    <a class="edit" href="/profile" title="编辑我的信息"><i class="icon-edit-alt"></i></a>
+    {% endif %}
+    {% if isOther and isLogin %}
+    <a id="black" class="delete" href="javascript:;" title="加入黑名单">
+        <i class="icon-ellipsis"></i>
+    </a>
+    {% endif %}    
+    <div class="avatar">
+        <img src="{{user.avatar||'/img/avatar.jpg'}}" alt="avatar">
+    </div>
+    <h2 class="name">{{user.uname}}</h2>
+    <div class="desc">{{user.intro}}</div>
+    <div class="nav">
+        <a {% if isIndex %}class="active" href="javascript:;"{% else %}href="/{%if isOther%}user/{{user.uid}}{%endif%}"{% endif %}>我的梦<span>{{user.feed_count}}</span></a>
+        {% if user.feed_image_count > 0 %}
+        <a {% if isPic %}class="active"{% else %}href="/picture{%if isOther%}/{{user.uid}}{%endif%}"{% endif %}>插图<span>{{user.feed_image_count}}</span></a>
+        {% endif %}
+    </div>
+    <div class="info">
+        <p title="性别"><span class="label">性别 :</span><span>{{user.sex}}</span></p>
+        <p title="剩下多少生命"><span class="label">剩下生命 :</span><span>{{user.age}}</span></p>
+        <p title="职业"><span class="label">职业 :</span><span>{{user.job}}</span></p>
+        <p title="地域"><span class="label">地域 :</span><span>{{user.location}}</span></p>
+    </div>
+    <div class="tags">
+        {% for tag in user.tags %}
+        <a {%if tagName == tag %}class="active"{%else%}href="/tag/{{user.uid}}/{{tag}}"{%endif%}>{{tag}}</a>
+        {% endfor %}
+    </div>
+</div>

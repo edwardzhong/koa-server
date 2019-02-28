@@ -1,0 +1,16 @@
+{
+    "apps": [{
+        "name": "nodejs template",
+        "script": "app.js",
+        "interpreter_args": "-harmony",
+        "watch": false,
+        "log_date_format": "YYYY - MM - DD HH: mm Z",
+        "instances": "max",
+        "exec_mode": "cluster",
+        "max_memory_restart":"100M",
+        "cron_restart":"0 1 * * * ",
+        "env": {
+            "NODE_ENV": "production"
+        }
+    }]
+}

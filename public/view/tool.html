@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>接口测试</title>
+	<style>
+		.block {
+			width: 600px;
+			margin: 20px auto;
+			text-align: center;
+		}
+
+		h3 {
+			text-align: left;
+		}
+
+		textarea {
+			width: 100%;
+		}
+
+		a {
+			line-height: 2;
+			color: #666;
+		}
+
+		button {
+			padding: 4px 40px;
+			border: 1px solid #179be6;
+			background-color: #179be6;
+			color: #fff;
+			border-radius: 6px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="block">
+		<h3>参数</h3>
+		<textarea name="txt" id="txt" cols="50" rows="5"></textarea>
+		<h3>结果</h3>
+		<textarea name="ret" id="ret" cols="50" rows="15"></textarea>
+		<button id="btn">测试</button><br>
+		<a id="login" href="/login">登录</a> | <a id="logout" href="javascript:;">退出登录</a> |<a href="/">主页</a>
+	</div>
+	<script>
+		$('#login').attr('href', '/login?rurl=' + encodeURIComponent("/tool"));
+		$('#btn').on('click', send);
+		$('#logout').on('click', function () {
+			$.ajax({
+				url: '/logout', type: 'POST', dataType: 'json',
+				success: function (ret) { showRet(ret); }, 
+				error: function (err) { $('#ret').val(err); }
+			});
+		}); 
+		function send() { 
+			var val = $.trim($('#txt').val()); 
+			val = val.replace(/\n/g, '","').replace(/\:/g, '":"'); 
+			var data = '{"' + val + '"}'; console.log(data); 
+			data = JSON.parse(data); 
+			$.ajax({ 
+				url: '/api', 
+				data: data, 
+				type: 'POST', 
+				dataType: 'json', 
+				success: function (ret) { 
+					showRet(ret); }, 
+				error: function (err) { 
+					$('#ret').val(err); 
+				} 
+			}); 
+		} 
+		function showRet(ret) { 
+			var str = JSON.stringify(ret); 
+			str = str.replace(/\,/g, ',\n'); 
+			$('#ret').val(str); 
+		}
+	</script>
+</body>
+
+</html>

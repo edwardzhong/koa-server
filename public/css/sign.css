@@ -1,0 +1,16 @@
+h1 {
+  color: #d00;
+}
+
+a {
+  text-decoration: none;
+}
+
+.sign {
+  box-sizing: border-box;
+  padding: 20px;
+}
+
+.sign label {
+  display: inline-block;
+}

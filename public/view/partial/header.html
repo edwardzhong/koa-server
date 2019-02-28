@@ -1,0 +1,51 @@
+<div class="header">
+	<div class="inner">
+		<div class="nav">
+			{% if isExplore or isNotice or isSearch or isEdit or isOther%}
+			<a href="index.html"><div class="avatar"><img src="./img/avatar.jpg" alt="我的主页" title="我的主页"></div></a>
+			{% else %}
+			<a class="active" href="index.html"><div class="avatar"><img src="./img/avatar.jpg" alt="我的主页" title="我的主页"></div></a>
+			{% endif %}
+			<a {% if isNotice %} class="active new"{% else %} class="new"{% endif %} href="notice.html" title="通知"><i class="icon-bell"></i></a> 
+			<a {% if isExplore %} class="active"{% endif %} href="explore.html" title="探索"><i class="icon-globe"></i></a>
+			<a {% if isSearch %} class="active"{% endif %} href="search.html" title="搜索"><i class="icon-search"></i></a>
+		</div>
+		<div class="set">
+			<div id="setUp" class="setup" title="设置"><i class="icon-cog"></i>
+				<div class="down-tip" id="setMenu">
+					<div class="menu">
+						<a href="setup.html#about">关于</a>
+						<a href="setup.html#notice">通知</a>
+						<a href="setup.html#private">隐私</a>
+						<a href="setup.html#account">账户</a>
+						<a href="setup.html#black">黑名单</a>
+						<a id="logOut" href="javascript:;"><i class="icon-logout"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="scrollPos" class="title">
+			<div class="avatar"><img src="./img/avatar.jpg" alt=""></div>
+			<h1>iDream</h1>	
+		</div>
+		{% if isSearch %}
+		<div id="search" class="search-wrap">
+			<input type="text" placeholder="搜索">
+			<ul class="tip">
+				<li class="clearfix"><span>梦境</span>
+					<p></p>
+				</li>
+				<li class="clearfix"><span>用户</span>
+					<p></p>
+				</li>
+				<li class="clearfix"><span>插画</span>
+					<p></p>
+				</li>
+				<li class="clearfix"><span>我的</span>
+					<p></p>
+				</li>
+			</ul>
+		</div>
+		{% endif %}
+	</div>
+</div>
