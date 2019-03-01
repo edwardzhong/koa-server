@@ -29,6 +29,6 @@ module.exports = opt => {
                 }
             }
         };
-        next();
+        await next();//注意要加上 await
     };
 };

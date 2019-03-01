@@ -1,4 +1,7 @@
-drop table `user`;
+create database if not exists chatdb;
+use chatdb;
+
+drop table if exists `user`;
 CREATE TABLE `user` (
   `id` char(36) NOT NULL DEFAULT '' COMMENT '主键',
   `name` varchar(50) NOT NULL COMMENT '用户名',
@@ -15,7 +18,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment '用户表';
 
-drop table `article`;
+drop table if exists `article`;
 create table `article`(
 `id` int not null auto_increment primary key comment '主键',
 `title` varchar(100) comment '标题',
@@ -27,13 +30,13 @@ create table `article`(
 `update_date` int unsigned comment '更新时间'
 ) comment '文章表';
 
-drop table `tag`;
+drop table if exists `tag`;
 create table `tag`(
 `id` int not null auto_increment primary key comment '主键',
 `name` varchar(20) not null comment '标签名称'
 ) comment '标签表';
 
-drop table `message`;
+drop table if exists `message`;
 create table `message`(
 `id` int not null auto_increment primary key comment '主键',
 `content` varchar(100) not null comment '内容',
@@ -45,7 +48,7 @@ create table `message`(
 `create_date` int unsigned comment '创建时间'
 ) comment '消息表';
 
-drop table `tag_article`;
+drop table if exists `tag_article`;
 CREATE TABLE `tag_article` (
   `user_id` char(36) NOT NULL COMMENT '用户id',
   `article_id` int NOT NULL COMMENT '文章id',

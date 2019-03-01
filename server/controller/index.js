@@ -4,11 +4,12 @@ exports.index = async ctx =>{
 };
 
 exports.msg = async ctx=> {
-    const token = ctx.state.token;
-    if (!token.isValid) {
-        ctx.status = 403;
-        ctx.body = token;
-    } else {
-        ctx.body = ctx.state.token;
-    }
+    ctx.body={a:111};
+    // const token = ctx.state.token;
+    // if (!token.isValid) {
+    //     ctx.status = 403;
+    //     ctx.body = token;
+    // } else {
+    //     ctx.body = ctx.state.token;
+    // }
 };

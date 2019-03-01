@@ -37,6 +37,7 @@ app.use(koaBody({
     jsonLimit: 1024 * 1024 * 5,
     formLimit: 1024 * 1024 * 5,
     textLimit: 1024 * 1024 * 5,
+    multipart: true,
     formidable: { uploadDir: baseDir + '/public/upload' }
 }));
 
@@ -45,7 +46,12 @@ app.use(static(baseDir + '/dist', { index: false }));
 // app.use(favicon(baseDir + '/public/favicon.jpg'));
 
 //cors
-app.use(cors());
+app.use(cors({
+    origin:'*',
+    // credentials: true,//是否将request的凭证暴露出来
+    allowMethods: ['GET', 'POST', 'DELETE'],
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept']
+}));
 
 //json-web-token
 app.use(jwt({
@@ -82,6 +88,8 @@ app.on('error', (err, ctx) => {
         ctx.res.end('Server Error');
     }
 });
+
+
 
 if (!module.parent) {
     const { port, socketPort } = config;

@@ -1,13 +1,24 @@
-h1{
-    color: #d00;
-}
-a{
-    text-decoration: none;
-}
-.sign{
-    box-sizing: border-box;
-    padding: 20px;
+.form{
+    width: 400px;
+    margin: 50px auto;
+    &[name="loginForm"]{
+        text-align: center;
+    }
+    legend{
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 2;
+        text-align: center;
+        border-bottom:none;
+        margin: 0;
+    }
     label{
-        display: inline-block;
+        width: 100px;
+    }
+    input[type="email"],input[type="password"]{
+        width: 240px;
+    }
+    button{
+        width: 100px;
     }
 }

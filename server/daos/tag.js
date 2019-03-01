@@ -1,6 +1,5 @@
-const helper = require('./daoHelper');
 const pool = require("./dbPool").getPool();
-const log = require('../common/logger').logger();
+const log = require('../common/logger')
 
 const methods = {
     getTagsByUser: 'select a.name,b.* from tag a join tag_article b on a.id=b.tag_id where b.user_id = ?',
