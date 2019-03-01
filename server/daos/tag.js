@@ -1,4 +1,4 @@
-const exportFunctions = require('./daoHelper');
+const exportFunctions = require('./exportDao');
 
 module.exports = exportFunctions({
     getTagsByUser: 'select a.name,b.* from tag a join tag_article b on a.id=b.tag_id where b.user_id = ?',

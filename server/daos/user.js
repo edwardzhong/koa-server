@@ -1,4 +1,4 @@
-const exportFunctions = require('./exportFunctions');
+const exportFunctions = require('./exportDao');
 
 module.exports = exportFunctions({
 	count: 'select count(*) as count from user where ?',
