@@ -1,4 +1,4 @@
-const exportFunctions = require('./daoHelper');
+const exportFunctions = require('./exportFunctions');
 
 module.exports = exportFunctions({
     query: null,

@@ -1,9 +1,9 @@
 
-exports.index = async ctx =>{
+exports.index = async function(ctx) {
     ctx.render('index.html');
 };
 
-exports.msg = async ctx=> {
+exports.msg = async function(ctx) {
     ctx.body={a:111};
     // const token = ctx.state.token;
     // if (!token.isValid) {

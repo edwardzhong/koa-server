@@ -2,7 +2,7 @@ import { get, post } from './common/request'
 import '../public/css/base.css'
 import '../public/scss/sign.scss'
 
-const loginForm = document.forms['loginForm'];
+// const loginForm = document.forms['loginForm'];
 // loginForm['email'].oninvalid=function(e){
 //     if(this.validity.valueMissing){
 //         this.setCustomValidity('邮箱不能为空');
@@ -20,7 +20,7 @@ const loginForm = document.forms['loginForm'];
 //     }
 // };
 
-loginForm.addEventListener('submit', function (e) {
+document.forms['loginForm'].addEventListener('submit', function (e) {
     e.preventDefault();
     const data = new FormData(this);
     // console.log(this, this["email"], e.target.elements["pass"]);
@@ -50,23 +50,6 @@ document.forms['regForm'].addEventListener('submit', function (e) {
         console.log(err);
     });
 }, false);
-// (async () => {
-//     try {
-//         // const res = await Request('/login');
-//         // console.log(res);
-
-//         setTimeout(async () => {
-//             try{
-//                 const ret = await Request('/info'); 
-//                 console.log(ret)
-//             } catch(er){
-//                 console.log(er);
-//             }
-//         }, 3000);
-//     } catch (err) {
-//         console.log(err);
-//     }
-// })()
 
 
 
