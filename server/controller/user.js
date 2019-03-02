@@ -100,7 +100,6 @@ exports.register = async function (ctx, next) {
  * @return {[type]}        [description]
  */
 exports.logout = async function (ctx, next) {
-	ctx.state.token = null;
 	ctx.sign({ name: 'logout' }, 1);
 	ctx.body = {
 		code: 0,

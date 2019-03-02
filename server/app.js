@@ -37,13 +37,13 @@ app.use(koaBody({
     jsonLimit: 1024 * 1024 * 5,
     formLimit: 1024 * 1024 * 5,
     textLimit: 1024 * 1024 * 5,
-    multipart: true,
-    formidable: { uploadDir: baseDir + '/public/upload' }
+    multipart: true,// 解析FormData数据
+    formidable: { uploadDir: path.join(baseDir, 'public/upload') }
 }));
 
 // set static directiory
-app.use(static(baseDir + '/dist', { index: false }));
-// app.use(favicon(baseDir + '/public/favicon.jpg'));
+app.use(static(path.join(baseDir, 'dist'), { index: false }));
+app.use(favicon(path.join(baseDir, 'dist/favicon.jpg')));
 
 //cors
 app.use(cors({
@@ -55,9 +55,8 @@ app.use(cors({
 
 //json-web-token
 app.use(jwt({
-    secket: config.secret,
+    secret: config.secret,
     exp: config.exp,
-    renewal: true//自动续期
 }));
 
 // set template engine
