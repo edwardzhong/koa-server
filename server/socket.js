@@ -21,16 +21,20 @@ module.exports = io => {
         };
 
         // 对message事件的监听
-        socket.on('message', function (msg) {
+        socket.on('message', function (data) {
             let obj = { time: getTime(), color: client.color };
 
             // 判断是第一次连接，以第一条消息作为用户名
-            if (!client.name) {
-                client.name = msg;
-                obj.text = '=== welcome, ' + client.name + ' ===';
-                obj.author = 'System';
-                obj.type = 'welcome';
-                console.log(client.name + ' login');
+            if (data.type == 'sign') {
+                client.user = data.data;
+                Object.assign(obj, {
+                    id: data.data.id,
+                    name: data.data.name,
+                    text: '=== welcome, ' + client.user.name + ' ===',
+                    author: 'System',
+                    type: 'welcome',
+                })
+                console.log(client.user.name + ' login');
 
                 //返回欢迎
                 socket.emit('system', obj);
@@ -39,10 +43,12 @@ module.exports = io => {
                 socket.broadcast.emit('system', obj);
             } else {
                 //如果不是第一次的连接，正常的聊天消息
-                obj.text = msg;
-                obj.author = client.name;
-                obj.type = 'message';
-                console.log(client.name + ' say: ' + msg);
+                Object.assign(obj, {
+                    text: data.data,
+                    author: client.user.name,
+                    type: 'message'
+                });
+                console.log(client.user.name + ' say: ' + data.data);
 
                 // 返回消息（可以省略）
                 socket.emit('message', obj);
@@ -53,19 +59,18 @@ module.exports = io => {
 
         //监听出退事件
         socket.on('disconnect', function () {
+            if (!client.user) return;
             let obj = {
+                id: client.user.id,
                 time: getTime(),
                 color: client.color,
                 author: 'System',
-                text: '=== goodbye, ' + client.name + ' ===',
+                text: '=== goodbye, ' + client.user.name + ' ===',
                 type: 'disconnect'
             };
-
-            if (client.name) {
-                // 广播用户已退出
-                socket.broadcast.emit('system', obj);
-                console.log(client.name + ' Disconnect');
-            }
+            // 广播用户已退出
+            socket.broadcast.emit('system', obj);
+            console.log(client.user.name + ' Disconnect');
         });
     });
 };

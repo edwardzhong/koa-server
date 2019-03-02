@@ -1,20 +1,77 @@
-h1 {
+.block {
+  position: relative;
+  box-sizing: border-box;
+  width: 700px;
+  margin: 20px auto;
+}
+
+.tip {
+  display: none;
+  position: absolute;
+  left: 300px;
+  top: 80px;
+  min-width: 200px;
+  padding: 0 10px;
+  line-height: 3;
+  text-align: center;
+  font-size: 12px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.tip.show {
+  display: block;
+}
+
+header {
+  background: #0398e2;
+}
+
+header h2 {
+  font-size: 16px;
+  font-weight: normal;
+  margin: 0;
+  line-height: 3;
+  color: #fff;
   text-align: center;
 }
 
-.form {
-  padding: 20px;
-  width: 500px;
-  margin: 0 auto;
+.media {
+  display: flex;
+  align-items: flex-start;
+  border: 1px solid #ddd;
+  border-top: none;
+}
+
+.media nav {
+  width: 200px;
+}
+
+.media nav a {
+  display: block;
+  line-height: 2.4;
+  padding: 0 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.media nav a:first-child {
+  margin-top: 10px;
+}
+
+.media .form {
+  flex: 1;
+  border-left: 1px solid #ddd;
 }
 
 .content {
+  box-sizing: border-box;
   width: 100%;
-  height: 200px;
   padding: 10px;
+  min-height: 300px;
+  max-height: 600px;
   overflow-y: scroll;
-  border: 1px solid #ddd;
-  border-radius: 4px;
 }
 
 .content p {
@@ -37,9 +94,13 @@ h1 {
 }
 
 .info {
+  padding-left: 20px;
   color: #d00;
 }
 
 .input {
+  box-sizing: border-box;
+  border-radius: 0 !important;
+  margin-bottom: -1px;
   width: 100%;
 }

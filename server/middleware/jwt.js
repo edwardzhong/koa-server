@@ -4,7 +4,7 @@ const log = require('../common/logger')
 module.exports = opt => {
     const config = Object.assign({ secret: 'JEFFJWT', exp: 3600 }, opt);
     return async (ctx, next) => {
-        ctx.sign =  (payload, exp) => {
+        ctx.sign = (payload, exp) => {
             // 签发Token, 并添加到header中
             const token = jwt.sign(payload, config.secret, { expiresIn: exp || config.exp });
             ctx.set('Authorization', `Bearer ${token}`);

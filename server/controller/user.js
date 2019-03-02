@@ -32,7 +32,7 @@ exports.login = async function (ctx, next) {
 				msg: '密码错误'
 			};
 		}
-		ctx.sign({ uid: users[0].id, uname: users[0].name });
+		await ctx.sign({ uid: users[0].id, uname: users[0].name });
 		ctx.body = {
 			code: 0,
 			msg: '登录成功'
@@ -41,6 +41,7 @@ exports.login = async function (ctx, next) {
 		log.error(err);
 		ctx.body = {
 			code: -1,
+			msg: '服务器错误',
 			err: err
 		};
 	}
@@ -87,6 +88,7 @@ exports.register = async function (ctx, next) {
 		log.error(err);
 		ctx.body = {
 			code: -1,
+			msg: '服务器错误',
 			err: err
 		};
 	}

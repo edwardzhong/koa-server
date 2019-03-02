@@ -1,15 +1,35 @@
+const userDao = require('../daos/user')
 
-exports.index = async function(ctx) {
+exports.index = async function (ctx) {
     ctx.render('index.html');
 };
 
-exports.msg = async function(ctx) {
-    ctx.body={a:111};
-    // const token = ctx.state.token;
-    // if (!token.isValid) {
-    //     ctx.status = 403;
-    //     ctx.body = token;
-    // } else {
-    //     ctx.body = ctx.state.token;
-    // }
+exports.userInfo = async function (ctx) {
+    try {
+        const token = await ctx.verify();
+        if (!token.isValid) {
+            return ctx.body = {
+                code: 2,
+                msg: '未登录'
+            };
+        }
+        const users = await userDao.query({ id: token.uid });
+        if (!users.length) {
+            return ctx.body = {
+                code: 1,
+                msg: '不存在该用户'
+            };
+        }
+        ctx.body = {
+            code: 0,
+            msg: '用户信息',
+            data: users[0]
+        };
+    } catch (err) {
+        ctx.body = {
+            code: -1,
+            msg: '服务器错误',
+            err: err
+        };
+    }
 };
