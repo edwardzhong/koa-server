@@ -17,6 +17,29 @@ socket.on('open', function () {
     init();
 });
 
+//登录成功
+socket.on('signin',function(data){
+    appendUser(data);
+    appendMsg(data);
+    showTip('connect to server is ok, have fun !');
+    setTimeout(hideTip, 1000);
+});
+
+//监听用户加入
+socket.on('userin',function(data){
+    appendUser(data);
+    appendMsg(data);
+});
+
+//监听用户离开
+socket.on('userout',removeUser);
+
+//监听message事件，打印消息信息
+socket.on('message', function (data) {
+    console.log(data);
+    appendMsg(data);
+});
+
 const init = async () => {
     try {
         const ret = await get('/userInfo');
@@ -35,28 +58,6 @@ const init = async () => {
     }
 }
 
-
-//监听system事件，判断welcome或者disconnect，打印系统消息信息
-socket.on('system', function (data) {
-    console.log(data);
-    appendMsg(data);
-    if (data.type == 'welcome') {
-        appendUser(data);
-        if(data.id === user.id){
-            showTip('connect to server is ok, have fun !');
-            setTimeout(hideTip, 1000);
-        }
-    } else if(data.type == 'disconnect'){
-        removeUser(data);
-    }
-});
-
-//监听message事件，打印消息信息
-socket.on('message', function (data) {
-    console.log(data);
-    appendMsg(data);
-});
-
 //通过“回车”提交聊天信息
 input.onkeydown = function (e) {
     let msg = this.value.trim();
@@ -67,7 +68,7 @@ input.onkeydown = function (e) {
     }
 };
 
-function appendMsg(data) {
+const appendMsg = data => {
     let p = document.createElement('p');
     let author = data.author == 'System' ? '' : (data.author + ':')
     p.innerHTML = `<time>${data.time}</time><span style="color:${data.color}">${author}</span><span>${data.text}</span>`;
@@ -75,7 +76,7 @@ function appendMsg(data) {
     content.scrollTop = content.scrollHeight;
 }
 
-function appendUser(data){
+const appendUser = data=>{
     let a = document.createElement('a');
     a.href='javascript:;'
     a.setAttribute('data-id',data.id);
@@ -83,7 +84,7 @@ function appendUser(data){
     nav.appendChild(a);
 }
 
-function removeUser(data){
+const removeUser = data=>{
     Array.from(nav.children).forEach(a=>{
         if(a.dataset.id == data.id){
             nav.removeChild(a);

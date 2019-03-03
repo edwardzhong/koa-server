@@ -24,7 +24,7 @@ module.exports = io => {
         socket.on('message', function (data) {
             let obj = { time: getTime(), color: client.color };
 
-            // 判断是第一次连接，以第一条消息作为用户名
+            // 第一次连接
             if (data.type == 'sign') {
                 client.user = data.data;
                 Object.assign(obj, {
@@ -37,10 +37,9 @@ module.exports = io => {
                 console.log(client.user.name + ' login');
 
                 //返回欢迎
-                socket.emit('system', obj);
-
+                socket.emit('signin', obj);
                 //广播新用户已登陆
-                socket.broadcast.emit('system', obj);
+                socket.broadcast.emit('userin', obj);
             } else {
                 //如果不是第一次的连接，正常的聊天消息
                 Object.assign(obj, {
@@ -50,7 +49,7 @@ module.exports = io => {
                 });
                 console.log(client.user.name + ' say: ' + data.data);
 
-                // 返回消息（可以省略）
+                // 返回消息
                 socket.emit('message', obj);
                 // 广播向其他用户发消息
                 socket.broadcast.emit('message', obj);
@@ -69,7 +68,7 @@ module.exports = io => {
                 type: 'disconnect'
             };
             // 广播用户已退出
-            socket.broadcast.emit('system', obj);
+            socket.broadcast.emit('userout', obj);
             console.log(client.user.name + ' Disconnect');
         });
     });
