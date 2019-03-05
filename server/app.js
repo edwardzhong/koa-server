@@ -71,9 +71,10 @@ app.use(router.routes())
 
 // deal 404
 app.use(async (ctx, next) => {
-    ctx.status = 404;
-    ctx.body = '404! page not found !';
     log.error(`404 ${ctx.message} : ${ctx.href}`);
+    ctx.status = 404;
+    // ctx.body = '404! page not found !';
+    ctx.render('404.html');
 });
 
 // koa already had middleware to deal with the error, just rigister the error event
@@ -84,7 +85,7 @@ app.on('error', (err, ctx) => {
     if (ctx.app.env === 'development') { //throw the error to frontEnd when in the develop mode
         ctx.res.end(err.stack); //finish the response
     } else {
-        ctx.res.end('Server Error');
+        ctx.render('Server Error');
     }
 });
 

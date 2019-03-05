@@ -10,6 +10,7 @@ function get(url, form) {
     return new Promise((resolve, reject) => {
         let body = '';
         http.get(url + '?' + qs.stringify(form), res => {
+            res.setEncoding('utf8');
             res.on('data', data => {
                 body += data;
             });

@@ -1,30 +1,28 @@
-doctype html
-html
-	head
-		title sign
-		//- link(href='/css/base.min.css')
-		//- link(href='/css/sign.min.css')
-	body
-		div#tip(class="alert alert-danger") 
-		div.form-block
-			form(action='/login' method='post' class='form form-aligned' name="logForm")
-				fieldset
-					legend sign in 
-					div.control-group
-						input(type='email' name='email' placeholder='email' required)
-					div.control-group
-						input(type='password' name='password' placeholder='password' maxlength='12' required)
-					button(type='submit' class='button button-primary') login
-					a(href="#reg") to register &#8594
+extends ./layout/layout.pug
+block css
+	//- link(href='/css/base.min.css')
+	//- link(href='/css/sign.min.css')
+block content
+	div#tip(class="alert alert-danger") 
+	div.form-block
+		form(action='/login' method='post' class='form form-aligned' name="logForm")
+			fieldset
+				legend sign in 
+				div.control-group
+					input(type='email' name='email' placeholder='email' required)
+				div.control-group
+					input(type='password' name='password' placeholder='password' maxlength='12' required)
+				button(type='submit' class='button button-primary') login
+				a(href="#reg") to register &#8594
 
-			form(action='/register' method='post' class='form form-aligned' name="regForm")
-				fieldset
-					legend sign up
-					div.control-group
-						input(type='email' name='email' placeholder='email' required)
-					div.control-group
-						input(type='password' name='password' placeholder='password' maxlength='12' pattern='[\\d\\w]{4,12}' required)
-					div.control-group
-						input#pass2(type='password' placeholder='confirm password' required)
-					button(type='submit' class='button button-primary') register
-					a(href="#log") to login &#8594
+		form(action='/register' method='post' class='form form-aligned' name="regForm")
+			fieldset
+				legend sign up
+				div.control-group
+					input(type='email' name='email' placeholder='email' required)
+				div.control-group
+					input(type='password' name='password' placeholder='password' maxlength='12' pattern='[\\d\\w]{4,12}' required)
+				div.control-group
+					input#pass2(type='password' placeholder='confirm password' required)
+				button(type='submit' class='button button-primary') register
+				a(href="#log") to login &#8594

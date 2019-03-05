@@ -100,6 +100,19 @@ module.exports = {
                 removeStyleLinkTypeAttributes:true
              }
         }),
+        new HtmlWebpackPlugin({
+            template: './public/view/404.pug',//模版路径
+            filename: '404.html',//生成后的文件名,默认index.html
+            favicon: './public/favicon.jpg',
+            chunks: [],
+            minify: {
+                removeAttributeQuotes:true,
+                removeComments: true,
+                collapseWhitespace: true,
+                removeScriptTypeAttributes:true,
+                removeStyleLinkTypeAttributes:true
+             }
+        }),
         new HotModuleReplacementPlugin()//HMR
     ]
 };

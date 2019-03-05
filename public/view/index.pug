@@ -1,16 +1,14 @@
-doctype html
-html
-    head
-        title hello pug
-        link(href='/css/base.min.css' rel='stylesheet')
-        //- link(href='/css/index.min.css' rel='stylesheet')
-    body
-        div.block
-            div#tip.tip connectting...
-            header
-                h2 Welcome to chat room !
-            div.media
-                nav#nav
-                div.form
-                    div#content.content
-                    input(type="text" placeholder='input message...')#input.input
+extends ./layout/layout.pug
+block css
+    //- link(href='/css/base.min.css' rel='stylesheet')
+    //- link(href='/css/index.min.css' rel='stylesheet')
+block content    
+    div.block
+        div#tip.tip connectting...
+        header
+            h2 Welcome to chat room !
+        div.media
+            nav#nav
+            div.form
+                div#content.content
+                input(type="text" placeholder='input message...')#input.input
