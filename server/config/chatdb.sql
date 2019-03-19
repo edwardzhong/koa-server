@@ -212,6 +212,3 @@ $$
 
 -- call getpage('user','',1,2,@pages,@total) --调用存储过程的方式
 -- select @pages,@total --获取返回参数的值
-
--- select a.*,b.article_id from tag a join tag_article b on a.id=b.tag_id where b.article_id in (4,5)
--- select * from article a join tag_article b on a.id=b.article_id where b.tag_id=2
