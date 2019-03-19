@@ -47,7 +47,7 @@ app.use(favicon(path.join(baseDir, 'dist/favicon.jpg')));
 
 //cors
 app.use(cors({
-    origin:'*',
+    origin:'*',//要写明具体域名"http://localhost:4000
     credentials: true,//是否将request的凭证暴露出来
     allowMethods: ['GET', 'POST', 'DELETE'],
     allowHeaders: ['Content-Type', 'Authorization', 'Accept']
