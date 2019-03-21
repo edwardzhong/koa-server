@@ -1,9 +1,10 @@
 const articleDao = require('../daos/article')
 const util = require('../common/util')
-const log = require('../common/logger').logger()
+const log = require('../common/logger')
 const fs = require('fs')
 const http = require('http')
 const path = require('path')
+const config = require('../config/app')
 
 /**
  * upload image
@@ -12,29 +13,29 @@ const path = require('path')
  * @param  {Function} next [description]
  * @return {[type]}        [description]
  */
-exports.uploadFile = async (ctx, next) => {
+exports.uploadFile = (ctx, next) => {
 	const form = ctx.request.body;
 	const { dir, name, ext } = path.parse(form.name);
 	const fileName = dir + '/' + name + new Date().getTime();
 	const filePath = path.normalize(__dirname + '/../..') + "/public/upload/" + fileName + ext;
 	try {
-		//同步写入上传文件夹
-		fs.writeFileSync(filePath, form.data, "binary", (err) => {
-			if (err) { log.error(err); }
-		});
-		ctx.body = await {
-			status: 0,
-			src: '/upload/' + fileName + ext,
-			ret: 'success'
+		const base64Data = form.data.replace(/^data:image\/\w+;base64,/, "");
+		const dataBuffer = Buffer.from(base64Data, 'base64');
+		fs.writeFileSync(filePath, dataBuffer);
+		ctx.body = {
+			code: 0,
+			data: `http://localhost:${config.port}/upload/${fileName+ext}`,
+			message: 'success'
 		};
 	} catch (err) {
-		ctx.body = await {
-			status: -1,
+		log.error(err);
+		ctx.body = {
+			code: -1,
 			error: err,
-			msg: '系统错误'
+			message: '系统错误'
 		};
 	}
-};
+}
 
 /**
  * download markdown file

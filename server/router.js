@@ -1,5 +1,6 @@
-const { index, userInfo } = require('./controller/index');
-const { sign, login, register, logout } = require('./controller/user');
+const { index, userInfo } = require('./controller/index')
+const { sign, login, register, logout } = require('./controller/user')
+const { uploadFile } = require('./controller/file')
 
 module.exports = function (router) {
     router.get('/', index)
@@ -9,4 +10,5 @@ module.exports = function (router) {
         .post('/login', login)
         .get('/logout', logout)
         .post('/register', register)
+        .post('/upload', uploadFile)
 };

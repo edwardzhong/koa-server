@@ -10,6 +10,7 @@ const router = require('koa-router')()
 const favicon = require('koa-favicon')
 const tpl = require('./middleware/tpl')
 const jwt = require('./middleware/jwt')
+const verify = require('./middleware/verify')
 const addRouters = require('./router')
 const config = require('./config/app')
 const server = require('http').createServer(app.callback())
@@ -47,9 +48,10 @@ app.use(favicon(path.join(baseDir, 'dist/favicon.jpg')));
 
 //cors
 app.use(cors({
-    origin:'*',//要写明具体域名"http://localhost:4000
+    origin: 'http://localhost:4001',// * 仍然不能访问，要写明具体域名才行
     credentials: true,//是否将request的凭证暴露出来
     allowMethods: ['GET', 'POST', 'DELETE'],
+    exposeHeaders: ['Authorization'],// expose出去，axios才能获取该字段
     allowHeaders: ['Content-Type', 'Authorization', 'Accept']
 }));
 
@@ -63,6 +65,12 @@ app.use(jwt({
 app.use(tpl({
     path: baseDir + '/dist'
 }));
+
+app.use(verify([
+    '/upload',
+    '/userInfo',
+    '/logout'
+]));
 
 // add route
 addRouters(router);
