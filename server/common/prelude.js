@@ -3,9 +3,7 @@
  * @param  {...Function} fns 
  */
 function compose(...fns) {
-    // var fns = Array.prototype.slice.call(arguments).reverse();
     return function (...args) {
-        // var args = Array.prototype.slice.call(arguments);
         let ret = null
         fns.reverse().forEach(function (fn, i) {
             i == 0 ? (ret = fn(...args)) : (ret = fn(ret))
@@ -186,10 +184,10 @@ function zip(arr, arr2) {
 function sort(callback, arr) {
     var ret = arr || callback;
     if (!isArray(ret)) return new Error('not a Array');
-    if(arr){
-        return ret.sort(callback); 
+    if (arr) {
+        return ret.sort(callback);
     } else {
-        return ret.sort(); 
+        return ret.sort();
     }
 }
 
