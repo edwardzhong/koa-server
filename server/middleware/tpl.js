@@ -2,7 +2,7 @@ const { readFileSync, existsSync, statSync } = require('fs')
 const log = require('../common/logger')
 
 /**
- * 简单模版引擎，直接输出html文件
+ * simple template engine
  */
 module.exports = opt => {
     const config = Object.assign({ path: '/' }, opt);

@@ -1,6 +1,9 @@
 const jwt = require('jsonwebtoken')
 const log = require('../common/logger')
 
+/**
+ * json web token
+ */
 module.exports = opt => {
     const config = Object.assign({ secret: 'JEFFJWT', exp: 3600 }, opt);
     return async (ctx, next) => {

@@ -11,32 +11,27 @@ let pool = null;
  * get the connection of database
  * 获取数据库连接
  */
-exports.getConnection = function () {
-    log.info('=== dbPool ===');
+exports.getConnection = function (callback) {
     if (!pool) {
-        log.info("创建数据库连接池");
+        log.info("creating pool");
         pool = mysql.createPool(dbconfig);
     }
-    return new Promise((resolve,reject)=>{
-        pool.getConnection(function (err, connection) {
-            //获取数据库连接出错
-            if (err || !connection) {
-                log.error("获取数据库连接失败：" + err.code);
-                reject(err);
-            }
-            resolve(connection);
-        });
+    pool.getConnection(function (err, connection) {
+        if (err || !connection) {
+            log.error(err);
+        } else {
+            callback(connection);
+        }
     });
 }
 
 /**
  * get the connection pool of database
  * 获取数据库连接池
- * @returns {*}
  */
 exports.getPool = function () {
     if (!pool) {
-        log.info("创建数据库连接池");
+        log.info("creating pool");
         pool = mysql.createPool(dbconfig);
     }
     return pool;

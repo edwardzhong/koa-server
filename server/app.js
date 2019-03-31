@@ -11,11 +11,12 @@ const favicon = require('koa-favicon')
 const tpl = require('./middleware/tpl')
 const jwt = require('./middleware/jwt')
 const verify = require('./middleware/verify')
+const errorHandler = require('./middleware/error')
 const addRouters = require('./router')
 const config = require('./config/app')
 const server = require('http').createServer(app.callback())
 const io = require('socket.io')(server)
-const appSocket = require('./socket')
+const addSocket = require('./socket')
 const path = require('path')
 const baseDir = path.normalize(__dirname + '/..')
 
@@ -48,11 +49,11 @@ app.use(favicon(path.join(baseDir, 'dist/favicon.jpg')));
 
 //cors
 app.use(cors({
-    origin: 'http://localhost:4001',// * 仍然不能访问，要写明具体域名才行
-    credentials: true,//是否将request的凭证暴露出来
+    origin: 'http://localhost:' + config.clientPort,// * 仍然不能访问header,要写明具体域名才行
+    credentials: true,//将凭证暴露出来, 前端才能获取cookie
     allowMethods: ['GET', 'POST', 'DELETE'],
-    exposeHeaders: ['Authorization'],// expose出去，axios才能获取该字段
-    allowHeaders: ['Content-Type', 'Authorization', 'Accept']
+    exposeHeaders: ['Authorization'],// 将header字段expose出去，前端才能获取该header字段
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept']// 允许添加到header的字段
 }));
 
 //json-web-token
@@ -66,11 +67,18 @@ app.use(tpl({
     path: baseDir + '/dist'
 }));
 
-app.use(verify([
-    '/upload',
-    '/userInfo',
-    '/logout'
-]));
+// exclude login verify url
+app.use(verify({
+    exclude: [
+        '/login',
+        '/register',
+        '/',
+        '/sign'
+    ]
+}));
+
+
+app.use(errorHandler());// handle the error
 
 // add route
 addRouters(router);
@@ -112,7 +120,7 @@ if (!module.parent) {
     /**
      * socket.io
      */
-    appSocket(io);
+    addSocket(io);
     server.listen(socketPort);
     log.info(`=== socket listening on port ${socketPort} ===`)
     console.log('socket server running at: http://localhost:%d', socketPort);

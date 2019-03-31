@@ -1,10 +1,10 @@
-const exportFunctions = require('./exportDao');
+const { exportDao } = require('./common');
 
-module.exports = exportFunctions({
-	sql:null,
+module.exports = exportDao({
+	sql: null,
 	count: 'select count(*) as count from user where ?',
-	query: 'select * from user where ?',
+	getUser: 'select * from user where ?',
 	insert: 'insert into user set ?',
-	update: 'update user set ?',
+	update: 'update user set ? where id = ?',
 	delete: 'delete from user where ?'
 });
