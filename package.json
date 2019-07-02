@@ -4,11 +4,10 @@
   "description": "node fullstack for website",
   "main": "app.js",
   "scripts": {
-    "dist": "webpack --config webpack.prod.js && gulp",
-    "build": "webpack --config webpack.dev.js && gulp",
-    "watch": "webpack-dev-server --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js && gulp",
+    "start": "webpack-dev-server --open --config webpack.dev.js",
     "dev": "export NODE_ENV=development && node --inspect server/app",
-    "start": "export NODE_ENV=production && node server/app"
+    "server": "export NODE_ENV=production && node server/app"
   },
   "keywords": [ "node", "koa","socket.io","pug","scss","mysql","json web token" ],
   "author": "Jeff Zhong",
@@ -56,5 +55,15 @@
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.2.0",
     "webpack-merge": "^4.2.1"
-  }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }

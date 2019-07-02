@@ -14,8 +14,8 @@ npm install
 
 ### 运行
 ```bash
-npm run build // build front end
-npm start     // start server
+npm run build      // build front end
+npm run server     // run server
 ```
 
 ### 配置文件
