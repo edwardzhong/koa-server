@@ -1,5 +1,5 @@
 const { resolve } = require('path')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { HotModuleReplacementPlugin } = require('webpack')
 const { readdirSync } = require('fs')
@@ -73,7 +73,9 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin([resolve(__dirname, 'dist')]),//生成新文件时，清空生出目录
+        new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: ['dist']
+        }),//生成新文件时，清空生出目录
         new HtmlWebpackPlugin({
             template: './public/view/index.pug',//模版路径
             filename: 'index.html',//生成后的文件名,默认index.html
