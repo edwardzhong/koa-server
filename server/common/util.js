@@ -31,6 +31,47 @@ function stringFormat(str, ...args) {
     });
 }
 
+function formatTime (str) {
+    const d = new Date(str);
+    const n = new Date();
+    const r = n - d;
+    const dateStr = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+    const timeStr = ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2) + ":" + ("0" + d.getSeconds()).slice(-2);
+    const just = 1000 * 10;
+    const min = 1000 * 60;
+    const hour = 1000 * 60 * 60;
+    const day = hour * 24;
+    const month = day * 30;
+    let i = timeStr;
+    
+    if (r < day && n.getDate() - d.getDate() == 0) {
+        if (r < just) {
+            i = "刚刚";
+        } else if (r < min) {
+            i = Math.floor(r / 1000) + "秒前";
+        } else if (r < hour) {
+            i = Math.floor(r / min) + "分钟前";
+        } else if (r < hour * 24) {
+            i = Math.floor(r / hour) + "小时前";
+        }
+    } else if (r < day * 2 && new Date(n.getTime() - day).getDate() - d.getDate() == 0) {
+        i = `昨天 ${timeStr}`;
+    } else if (r < day * 3 && new Date(n.getTime() - day *2).getDate() - d.getDate() == 0) {
+        i = `前天 ${timeStr}`;
+    } else if (r < day * 8) {
+        i = Math.floor(r / day) + "天前";
+    } else if (r < day * 30) {
+        i = dateStr;
+    } else if (r < month * 12) {
+        i = Math.floor(r / month) + "个月前";
+    } else if (r < day * 365 * 5) {
+        i = Math.floor(r / (day * 365)) + "年前";
+    } else {
+        i = `${dateStr} ${timeStr}`;
+    }
+    return i;
+};
+
 /**
  * html encode
  * html转码
@@ -141,6 +182,7 @@ function compressPicture(img, size) {
 module.exports = {
     deepCopy,
     stringFormat,
+    formatTime,
     htmlEncode,
     htmlDecode,
     getContentSummary,
