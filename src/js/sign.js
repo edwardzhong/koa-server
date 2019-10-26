@@ -1,6 +1,6 @@
 import { get, post } from './common/request'
-import '../public/css/base.css'
-import '../public/scss/sign.scss'
+import '../css/base.css'
+import '../scss/sign.scss'
 
 const tip = document.getElementById('tip');
 const wrap = document.getElementsByClassName('form-block')[0];

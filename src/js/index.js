@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
 import { get, post } from './common/request'
-import '../public/css/base.css'
-import '../public/scss/index.scss'
+import '../css/base.css'
+import '../scss/index.scss'
 
 const input = document.getElementById('input');
 const content = document.getElementById('content');
