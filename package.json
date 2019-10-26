@@ -4,9 +4,9 @@
   "description": "node fullstack for website",
   "main": "app.js",
   "scripts": {
-    "build": "webpack --config webpack.prod.js && gulp",
     "start": "webpack-dev-server --open --config webpack.dev.js",
-    "dev": "export NODE_ENV=development && node --inspect server/app",
+    "build": "webpack --config webpack.prod.js",
+    "dev:server": "export NODE_ENV=development && node --inspect server/app",
     "server": "export NODE_ENV=production && node server/app"
   },
   "keywords": [ "node", "koa","socket.io","pug","scss","mysql","json web token" ],
@@ -37,11 +37,6 @@
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.1.0",
     "file-loader": "^4.1.0",
-    "gulp": "^4.0.2",
-    "gulp-clean-css": "^4.2.0",
-    "gulp-postcss": "^8.0.0",
-    "gulp-rename": "^1.4.0",
-    "gulp-sass": "^4.0.2",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "koa-webpack": "^5.2.4",

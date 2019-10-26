@@ -9,14 +9,14 @@ const files = readdirSync(resolve(__dirname, 'src'))
 let entry = {};
 for (let v of files) {
     if (/(.+?)\.js$/.test(v)) {
-        entry[RegExp.$1] = './src/' + v
+        entry[RegExp.$1] = './src/js/' + v
     }
 }
 module.exports = {
     entry: entry ,//多入口
     output: {
         path: resolve(__dirname, 'dist'),
-        // publicPath: '/public/',//虚拟目录
+        publicPath: '/',
         filename: '[name]-[hash].js'//输出文件添加hash
     },
     optimization: { // 代替commonchunk, 代码分割
@@ -73,9 +73,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns: ['dist']
-        }),//生成新文件时，清空生出目录
+        new CleanWebpackPlugin(),//生成新文件时，清空生出目录
         new HtmlWebpackPlugin({
             template: './public/view/index.pug',//模版路径
             filename: 'index.html',//生成后的文件名,默认index.html

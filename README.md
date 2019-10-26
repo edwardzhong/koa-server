@@ -4,8 +4,7 @@
 * pug 模版引擎
 * json web token 认证
 * mysql 数据库
-* webpack 打包js
-* gulp 处理scss
+* webpack 4
 
 ### 安装
 ```bash
@@ -17,7 +16,7 @@ npm install
 npm start          # develop front end
 npm run build      # build front end
 
-npm run dev        # develop server
+npm run dev:server # develop server
 npm run server     # run server
 ```
 
@@ -25,10 +24,7 @@ npm run server     # run server
 * config/app.js     -- app config
 * config/log4js.js  -- log4js config
 * process.json      -- pm2 config
-* gulpfile.js       -- gulp
 * webpack.dev.js    -- webpack development
 * webpack.prod.js   -- webpack production
-* postcss.config.js -- postcss autoprefixer
 * .babelrc          -- babel config
-* .browserslistrc   -- browsers need to be processed
 
