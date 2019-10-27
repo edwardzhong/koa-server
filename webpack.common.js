@@ -11,7 +11,7 @@ const devMode = process.env.NODE_ENV !== 'production';
 
 
 // 扫描js目录下的文件
-const files = readdirSync(resolve(__dirname, 'src'))
+const files = readdirSync(resolve(__dirname, 'src/js/'))
 let entry = {};
 for (let v of files) {
     if (/(.+?)\.js$/.test(v)) {
@@ -71,7 +71,7 @@ module.exports = {
                       },
                     },
                     'css-loader',
-                  ],          
+                ],          
             },
             {
                 test: /\.scss$/,
@@ -105,7 +105,7 @@ module.exports = {
             template: './src/view/index.pug',//模版路径
             filename: 'index.html',//生成后的文件名,默认index.html
             favicon: './public/favicon.jpg',
-            chunks: ['runtime','common','index'],          
+            chunks: ['runtime','common','index','styles'],
             minify: {
                 removeAttributeQuotes:true,
                 removeComments: true,
@@ -118,7 +118,7 @@ module.exports = {
             template: './src/view/sign.pug',//模版路径
             filename: 'sign.html',//生成后的文件名,默认index.html
             favicon: './public/favicon.jpg',
-            chunks: ['runtime','common','sign'],
+            chunks: ['runtime','common','sign','styles'],
             minify: {
                 removeAttributeQuotes:true,
                 removeComments: true,

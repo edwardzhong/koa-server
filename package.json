@@ -9,7 +9,15 @@
     "dev:server": "export NODE_ENV=development && node --inspect server/app",
     "server": "export NODE_ENV=production && node server/app"
   },
-  "keywords": [ "node", "koa","socket.io","pug","scss","mysql","json web token" ],
+  "keywords": [
+    "node",
+    "koa",
+    "socket.io",
+    "pug",
+    "scss",
+    "mysql",
+    "json web token"
+  ],
   "author": "Jeff Zhong",
   "license": "MIT",
   "dependencies": {
