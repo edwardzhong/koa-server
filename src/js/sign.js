@@ -20,12 +20,12 @@ logForm.addEventListener('submit', function (e) {
         if (res.code == 0) {
             location.replace('/');
         } else {
-            showTip(res.msg);
+            showTip(res.message);
         }
     }).catch(err => {
         btn.disabled = false;
         console.log(err)
-        showTip(err.msg);
+        showTip(err.message);
     });
 }, false);
 
@@ -46,11 +46,11 @@ regForm.addEventListener('submit', function (e) {
         if (res.code == 0) {
             location.replace('/');
         } else {
-            showTip(res.msg);
+            showTip(res.message);
         }
     }).catch(err => {
         console.log(err);
-        showTip(err.msg);
+        showTip(err.message);
     });
 }, false);
 
