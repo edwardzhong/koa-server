@@ -3,9 +3,16 @@
         "name": "nodejs template",
         "script": "app.js",
         "interpreter_args": "-harmony",
-        "watch": false,
+        "watch": true,
+        "ignore_watch": [
+            "node_modules",
+            "public"
+        ],
         "log_date_format": "YYYY - MM - DD HH: mm Z",
         "instances": "max",
+        "error_file": "./logs/app-err.log",
+        "out_file": "./logs/app-out.log",
+        "merge_logs": true,
         "exec_mode": "cluster",
         "max_memory_restart":"100M",
         "cron_restart":"0 1 * * * ",
