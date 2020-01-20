@@ -1,74 +1,58 @@
 {
-  "name": "fullstack-project",
-  "version": "1.0.0",
-  "description": "node fullstack for website",
-  "main": "app.js",
-  "scripts": {
-    "start": "webpack-dev-server --open --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js",
-    "dev:server": "export NODE_ENV=development && node --inspect server/app",
-    "server": "export NODE_ENV=production && node server/app"
-  },
-  "keywords": [
-    "node",
-    "koa",
-    "socket.io",
-    "pug",
-    "scss",
-    "mysql",
-    "json web token"
-  ],
-  "author": "Jeff Zhong",
-  "license": "MIT",
-  "dependencies": {
-    "axios": "^0.19.0",
-    "jsonwebtoken": "^8.5.1",
-    "koa": "^2.7.0",
-    "koa-body": "^4.1.0",
-    "koa-compress": "^3.0.0",
-    "koa-favicon": "^2.0.1",
-    "koa-logger": "^3.2.1",
-    "koa-router": "^7.4.0",
-    "koa-static": "^5.0.0",
-    "koa2-cors": "^2.0.6",
-    "log4js": "^4.5.1",
-    "mysql": "^2.17.1",
-    "socket.io": "^2.2.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/plugin-transform-runtime": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "@babel/runtime": "^7.5.5",
-    "autoprefixer": "^9.6.1",
-    "babel-loader": "^8.0.6",
-    "clean-webpack-plugin": "^3.0.0",
-    "css-loader": "^3.1.0",
-    "file-loader": "^4.1.0",
-    "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^3.2.0",
-    "mini-css-extract-plugin": "^0.8.0",
-    "node-sass": "^4.12.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.3",
-    "postcss-loader": "^3.0.0",
-    "pug-html-loader": "^1.1.5",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.23.1",
-    "url-loader": "^2.1.0",
-    "webpack": "^4.39.1",
-    "webpack-bundle-analyzer": "^3.6.0",
-    "webpack-cli": "^3.3.6",
-    "webpack-dev-server": "^3.7.2",
-    "webpack-merge": "^4.2.1"
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+	"name": "koa-backend-project",
+	"version": "1.0.0",
+	"description": "node fullstack for website",
+	"main": "app.js",
+	"scripts": {
+		"start": "gulp",
+		"build": "gulp build",
+		"server": "export NODE_ENV=development && node --inspect dist/app"
+	},
+	"keywords": [
+		"node",
+		"typescript",
+		"koa",
+		"socket.io",
+		"mysql",
+		"json web token"
+	],
+	"author": "Jeff Zhong",
+	"license": "MIT",
+	"dependencies": {
+		"jsonwebtoken": "^8.5.1",
+		"koa": "^2.7.0",
+		"koa-body": "^4.1.0",
+		"koa-compress": "^3.0.0",
+		"koa-favicon": "^2.0.1",
+		"koa-logger": "^3.2.1",
+		"koa-router": "^7.4.0",
+		"koa-static": "^5.0.0",
+		"koa2-cors": "^2.0.6",
+		"log4js": "^4.5.1",
+		"mysql": "^2.17.1",
+		"pm2": "^4.2.1",
+		"socket.io": "^2.2.0"
+	},
+	"devDependencies": {
+		"@types/jsonwebtoken": "^8.3.6",
+		"@types/koa": "^2.11.0",
+		"@types/koa-compress": "^2.0.9",
+		"@types/koa-favicon": "^2.0.19",
+		"@types/koa-logger": "^3.1.1",
+		"@types/koa-router": "^7.4.0",
+		"@types/koa-static": "^4.0.1",
+		"@types/koa2-cors": "^2.0.1",
+		"@types/log4js": "^2.3.5",
+		"@types/mysql": "^2.15.8",
+		"@types/node": "^13.1.8",
+		"@types/socket.io": "^2.1.4",
+		"@types/uuid": "^3.4.6",
+		"del": "^5.1.0",
+		"gulp": "^4.0.2",
+		"gulp-nodemon": "^2.4.2",
+		"gulp-typescript": "^6.0.0-alpha.1",
+		"nodemon": "^2.0.2",
+		"ts-node": "^8.6.2",
+		"typescript": "^3.7.5"
+	}
 }
