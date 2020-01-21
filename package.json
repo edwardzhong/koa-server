@@ -1,7 +1,7 @@
 {
-	"name": "koa-backend-project",
+	"name": "koa-server",
 	"version": "1.0.0",
-	"description": "node fullstack for website",
+	"description": "node backend server",
 	"main": "app.js",
 	"scripts": {
 		"start": "gulp",
