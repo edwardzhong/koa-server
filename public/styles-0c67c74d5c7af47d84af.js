@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{72:function(o,p,c){var i=c(40)(o.i,{hmr:!0,locals:!1});o.hot.dispose(i),o.hot.accept(void 0,i)}}]);

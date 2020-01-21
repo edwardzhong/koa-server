@@ -1,0 +1,1 @@
+export const ROUTER_MAP = Symbol('route_map');

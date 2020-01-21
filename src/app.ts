@@ -34,7 +34,7 @@ app.use(compress({
     flush: require('zlib').Z_SYNC_FLUSH
 }));
 
-// diplay access records
+// display access records
 app.use(logger());
 
 // session
@@ -48,15 +48,15 @@ app.use(koaBody({
     formidable: { uploadDir: path.join(baseDir, 'public/upload') }
 }));
 
-// set static directiory
+// set static directory
 app.use(koaStatic(path.join(baseDir, 'public'), { index: false }));
 app.use(favicon(path.join(baseDir, 'public/favicon.jpg')));
 
 //cors
 app.use(cors({
-    origin: 'http://localhost:' + config.clientPort,// * 仍然不能访问header,要写明具体域名才行
+    origin: config.client,// * 写明详细url才行
     credentials: true,//将凭证暴露出来, 前端才能获取cookie
-    allowMethods: ['GET', 'POST', 'DELETE'],
+    allowMethods: ['GET', 'POST', 'DELETE', 'PUT'],
     exposeHeaders: ['Authorization'],// 将header字段expose出去，前端才能获取该header字段
     allowHeaders: ['Content-Type', 'Authorization', 'Accept']// 允许添加到header的字段
 }));
@@ -71,31 +71,25 @@ app.use(tpl({
 
 // exclude login verify url
 app.use(verify({
-    exclude: [
-        '/login',
-        '/register',
-        '/',
-        '/sign'
-    ]
+    exclude: ['/login', '/register']
 }));
 
-
-app.use(errorHandler());// handle the error
+// handle the error
+app.use(errorHandler());
 
 // add route
 addRouters(router);
-app.use(router.routes())
-    .use(router.allowedMethods());
+app.use(router.routes()).use(router.allowedMethods());
 
 // deal 404
 app.use(async (ctx) => {
     log.error(`404 ${ctx.message} : ${ctx.href}`);
     ctx.status = 404;
-    // ctx.body = '404! page not found !';
-    ctx.render('404.html');
+    ctx.body = '404! page not found !';
+    // ctx.render('404.html');
 });
 
-// koa already had middleware to deal with the error, just rigister the error event
+// koa already had middleware to deal with the error, just register the error event
 app.on('error', (err, ctx) => {
     log.error(err);//log all errors
     ctx.status = 500;

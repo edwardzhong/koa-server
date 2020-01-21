@@ -3,12 +3,8 @@ import log from '../common/logger'
 import { queryCallback } from 'mysql'
 const pool = getPool();
 
-type MysqlResult = {
-    affectedRows?: number;
-    insertId?: string;
-}
 const exportDao = (sql: string) => {
-    return (...args: any): Promise<MysqlResult> => new Promise((resolve, reject) => {
+    return (...args: any): Promise<any> => new Promise((resolve, reject) => {
         log.info('====== execute sql ======')
         log.info(sql, args);
         const callback: queryCallback = (err, result) => {
@@ -16,7 +12,7 @@ const exportDao = (sql: string) => {
             else resolve(result);
         }
         if (!sql) sql = args.shift();
-        
+
         pool.query(sql, ...args, callback);
     });
 }
@@ -30,7 +26,7 @@ const exportDao = (sql: string) => {
  *     'select * from user'
  * ]);
  */
-const transaction = (list: any): Promise<MysqlResult[]> => {
+const transaction = (list: any): Promise<any[]> => {
     return new Promise((resolve, reject) => {
         if (!Array.isArray(list) || !list.length) return reject('it needs a Array with sql')
         pool.getConnection((err, connection) => {
@@ -38,7 +34,7 @@ const transaction = (list: any): Promise<MysqlResult[]> => {
             connection.beginTransaction(err => {
                 if (err) return reject(err);
                 log.info('============ begin execute transaction ============')
-                let rets: MysqlResult[] = [];
+                let rets: any[] = [];
                 return (function dispatch(i) {
                     let args = list[i];
                     if (!args) {//finally commit

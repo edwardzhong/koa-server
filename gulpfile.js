@@ -1,8 +1,8 @@
 const { src, dest, watch, series, task } = require('gulp');
 const del = require('del');
 const ts = require('gulp-typescript');
-const tsProject = ts.createProject('tsconfig.json');
 const nodemon = require('gulp-nodemon');
+const tsProject = ts.createProject('tsconfig.json');
 
 function clean(cb) {
 	return del(['dist'], cb);
@@ -14,14 +14,16 @@ function toJs() {
 		.pipe(dest('dist'));
 }
 
-function watchFile() {
+function runNodemon() {
 	nodemon({
 		inspect: true,
-		script: 'dist/app.js',
+		script: 'src/app.ts',
 		watch: ['src'],
 		ext: 'ts',
 		env: { NODE_ENV: 'development' },
-		tasks: ['build'],
+		// tasks: ['build'],
+	}).on('crash', () => {
+		console.error('Application has crashed!\n');
 	});
 }
 
@@ -30,4 +32,4 @@ function watchFile() {
 const build = series(clean, toJs);
 task('build', build);
 exports.build = build;
-exports.default = series(build, watchFile);
+exports.default = runNodemon;

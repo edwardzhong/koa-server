@@ -1,4 +1,5 @@
-const { exportDao } = require('./common');
+import { exportDao } from './common'
+import { PlainObject } from '@/type'
 
 // const userDao = exportDao({
 // 	sql: null,
@@ -11,8 +12,8 @@ const { exportDao } = require('./common');
 
 
 export const sql = exportDao('');
-export const count = exportDao('select count(*) as count from user where ?')
-export const getUser = exportDao('select * from user where ?')
+export const count:(arg: PlainObject) => Promise<PlainObject[]> = exportDao('select count(*) as count from user where ?')
+export const getUser: (arg: PlainObject) => Promise<PlainObject[]> = exportDao('select * from user where ?')
 export const insert = exportDao('insert into user set ?')
 export const update = exportDao('update user set ? where id = ?')
 export const del = exportDao('delete from user where ?')

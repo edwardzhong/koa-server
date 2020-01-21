@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "gulp",
 		"build": "gulp build",
-		"server": "export NODE_ENV=development && node --inspect dist/app"
+		"server": "export NODE_ENV=production && node dist/app"
 	},
 	"keywords": [
 		"node",
@@ -31,6 +31,7 @@
 		"log4js": "^4.5.1",
 		"mysql": "^2.17.1",
 		"pm2": "^4.2.1",
+		"reflect-metadata": "^0.1.13",
 		"socket.io": "^2.2.0"
 	},
 	"devDependencies": {
