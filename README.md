@@ -1,9 +1,9 @@
 ## koa 后端项目模版
 ### 基于以下组件
 * node 
+* koa2
 * gulp 
 * typescript 
-* koa2
 * json web token
 * socket.io
 * pm2
