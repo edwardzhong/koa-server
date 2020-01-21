@@ -1,8 +1,7 @@
 {
     "apps": [{
-        "name": "nodejs template",
-        "script": "app.js",
-        "interpreter_args": "-harmony",
+        "name": "koa server",
+        "script": "./dist/app.js",
         "watch": true,
         "ignore_watch": [
             "node_modules",
