@@ -82,7 +82,7 @@ addRouters(router);
 app.use(router.routes()).use(router.allowedMethods());
 
 // deal 404
-app.use(async (ctx) => {
+app.use(async ctx => {
     log.error(`404 ${ctx.message} : ${ctx.href}`);
     ctx.status = 404;
     ctx.body = '404! page not found !';

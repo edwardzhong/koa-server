@@ -2,11 +2,7 @@
     "apps": [{
         "name": "koa server",
         "script": "./dist/app.js",
-        "watch": true,
-        "ignore_watch": [
-            "node_modules",
-            "public"
-        ],
+        "watch": ["dist"],
         "log_date_format": "YYYY - MM - DD HH: mm Z",
         "instances": "max",
         "error_file": "./logs/app_err.log",

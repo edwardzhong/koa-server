@@ -6,7 +6,8 @@
 	"scripts": {
 		"start": "gulp",
 		"build": "gulp build",
-		"server": "export NODE_ENV=production && node dist/app"
+		"server": "export NODE_ENV=production && node dist/app",
+		"pm2": "pm2 start process.json"
 	},
 	"keywords": [
 		"node",
