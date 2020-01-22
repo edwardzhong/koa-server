@@ -8,7 +8,7 @@ export const app = {
     client: 'http://localhost:4001',//允许访问接口的客户端地址
     host: "localhost",
     port: 3000,
-    socketPort: 3001,
+    socketPort: 3010,
     secret: 'JEFFJWT',
     exp: 60 * 60,
 };

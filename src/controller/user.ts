@@ -3,7 +3,8 @@ import { stringFormat } from '../common/util'
 import * as userDao from '../daos/user'
 import { Context } from 'koa';
 import { get } from '../decorator/httpMethod';
-
+import { app } from '../config'
+import { cpus } from 'os'
 export default class User {
 
     @get('/userinfo')
@@ -11,6 +12,14 @@ export default class User {
         const token = await ctx.verify();
         if (token.code !== 0) {
             return ctx.body = token;
+        }
+        //返回 websocket 的端口
+        let port = app.socketPort;
+        const instance = process.env.NODE_APP_INSTANCE;
+        //pm2 cluster模式，根据ip hash计算端口
+        if (instance) {
+            const ipArr = ctx.request.ip.match(/\d+/g);
+            port += parseInt(ipArr.join(''), 10) % cpus().length;
         }
         const users = await userDao.getUser({ id: token.data.uid });
         if (!users.length) {
@@ -22,7 +31,8 @@ export default class User {
             return ctx.body = {
                 code: 0,
                 data: users[0],
-                message: '用户存在'
+                socketPort: port,
+                message: 'success'
             };
         }
     }

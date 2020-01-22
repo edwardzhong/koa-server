@@ -18,7 +18,7 @@ const getTime = () => {
 const getColor = () => 'hsl(' + Math.floor(Math.random() * 360) + ',90%, 40%)';
 
 const addSocket = (io: Server) => {
-    io.on('connection', (socket) => {
+    io.on('connection', socket => {
         socket.emit('open');//通知客户端已连接
 
         // 构造客户端对象

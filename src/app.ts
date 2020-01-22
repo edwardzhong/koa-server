@@ -104,7 +104,13 @@ app.on('error', (err, ctx) => {
 
 
 if (!module.parent) {
-    const { port, socketPort } = config;
+    let { port, socketPort } = config;
+    //如果是pm2 cluster模式
+    const instance = process.env.NODE_APP_INSTANCE;
+    if (instance) {
+        socketPort += parseInt(instance, 10);
+    }
+
     /**
      * koa app
      */
