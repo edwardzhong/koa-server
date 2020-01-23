@@ -71,7 +71,7 @@ function formatTime(str: string): string {
         i = `${dateStr} ${timeStr}`;
     }
     return i;
-};
+}
 
 /**
  * html encode
@@ -85,8 +85,8 @@ function htmlEncode(str: string): string {
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/ /g, '&nbsp;')
-        .replace(/\'/g, '&#39;')
-        .replace(/\"/g, '&quot;');
+        .replace(/'/g, '&#39;')
+        .replace(/"/g, '&quot;');
 }
 
 /**
@@ -102,7 +102,7 @@ function htmlDecode(str: string = ''): string {
         .replace(/&gt;/g, '>')
         .replace(/&nbsp;/g, ' ')
         .replace(/&#39;/g, '\'')
-        .replace(/&quot;/g, '\"');
+        .replace(/&quot;/g, '"');
 }
 
 /**

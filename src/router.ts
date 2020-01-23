@@ -10,7 +10,7 @@ const addRouters = (router: Router) => {
     const modules: any[] = [];
     //扫描controller文件夹，加载所有controller
     fs.readdirSync(ctrPath).forEach(name => {
-        if (/^[^\.]+?\.(t|j)s$/.test(name)) {
+        if (/^[^.]+?\.(t|j)s$/.test(name)) {
             modules.push(require(path.join(ctrPath, name)).default)
         }
     });

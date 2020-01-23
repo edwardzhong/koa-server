@@ -101,8 +101,6 @@ app.on('error', (err, ctx) => {
     }
 });
 
-
-
 if (!module.parent) {
     let { port, socketPort } = config;
     //如果是pm2 cluster模式

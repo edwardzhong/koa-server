@@ -13,13 +13,13 @@ type Client = {
 
 const getTime = () => {
     let date = new Date();
-    return date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-}
+    return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+};
 const getColor = () => 'hsl(' + Math.floor(Math.random() * 360) + ',90%, 40%)';
 
 const addSocket = (io: Server) => {
-    io.on('connection', socket => {
-        socket.emit('open');//通知客户端已连接
+    io.on('connection', (socket) => {
+        socket.emit('open');// 通知客户端已连接
 
         // 构造客户端对象
         let client: Client = {
@@ -42,12 +42,12 @@ const addSocket = (io: Server) => {
             };
 
             callback(data);
-            //广播给其他用户有新用户加入
+            // 广播给其他用户有新用户加入
             socket.broadcast.emit('userin', data);
         });
 
         // 对message事件的监听
-        socket.on('message', msg => {
+        socket.on('message', (msg) => {
             let data = {
                 sid: socket.id,
                 id: client.user.id,
@@ -65,10 +65,10 @@ const addSocket = (io: Server) => {
             socket.broadcast.emit('reply', data);
         });
 
-        //监听出退事件
+        // 监听出退事件
         socket.on('disconnect', function () {
             console.log(client);
-            if (!client.user) return;
+            if (!client.user) {return;}
             let data = {
                 sid: socket.id,
                 id: client.user.id,
@@ -84,4 +84,4 @@ const addSocket = (io: Server) => {
     });
 };
 
-export default addSocket
+export default addSocket;
