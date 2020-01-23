@@ -1,4 +1,4 @@
-module.exports = {
+{
     "env": {
         "es6": true,
         "node": true
@@ -20,6 +20,6 @@ module.exports = {
         "@typescript-eslint"
     ],
     "rules": {
-        "no-unused-vars":0
+        "no-unused-vars": 0
     }
-};
+}

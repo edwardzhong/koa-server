@@ -8,7 +8,7 @@
 		"build": "gulp build",
 		"server": "export NODE_ENV=production && node dist/app",
 		"pm2": "pm2 start process.json",
-		"eslint": "eslint --fix 'src/**'"
+		"eslint": "eslint  --fix --ext .js,.ts src/"
 	},
 	"keywords": [
 		"node",
