@@ -11,7 +11,7 @@ export default class FileHandle {
      * @param ctx Context
      * 参数格式{file:File}
      */
-    @post('/upload')
+  @post('/upload')
   async uploadFile(ctx: Context) {
     const file = ctx.request.files.file;
     const dotPos = file.name.indexOf('.');
