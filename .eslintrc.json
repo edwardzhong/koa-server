@@ -20,6 +20,7 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "indent": ["warn", 2],
         "no-unused-vars": 0
     }
 }

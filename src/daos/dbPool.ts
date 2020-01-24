@@ -12,17 +12,17 @@ let pool: Pool = null;
  * 获取数据库连接
  */
 const getConnection = (callback: Function) => {
-    if (!pool) {
-        log.info("creating pool");
-        pool = mysql.createPool(dbConfig);
+  if (!pool) {
+    log.info("creating pool");
+    pool = mysql.createPool(dbConfig);
+  }
+  pool.getConnection((err, connection) => {
+    if (err || !connection) {
+      log.error(err);
+    } else {
+      callback(connection);
     }
-    pool.getConnection((err, connection) => {
-        if (err || !connection) {
-            log.error(err);
-        } else {
-            callback(connection);
-        }
-    });
+  });
 }
 
 /**
@@ -30,14 +30,14 @@ const getConnection = (callback: Function) => {
  * 获取数据库连接池
  */
 const getPool = () => {
-    if (!pool) {
-        log.info("creating pool");
-        pool = mysql.createPool(dbConfig);
-    }
-    return pool;
+  if (!pool) {
+    log.info("creating pool");
+    pool = mysql.createPool(dbConfig);
+  }
+  return pool;
 }
 
 export {
-    getConnection,
-    getPool
+  getConnection,
+  getPool
 }

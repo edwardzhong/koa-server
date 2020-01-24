@@ -4,17 +4,17 @@ import { queryCallback } from 'mysql'
 const pool = getPool();
 
 const exportDao = (sql: string) => {
-    return (...args: any): Promise<any> => new Promise((resolve, reject) => {
-        log.info('====== execute sql ======')
-        log.info(sql, args);
-        const callback: queryCallback = (err, result) => {
-            if (err) reject(err)
-            else resolve(result);
-        }
-        if (!sql) sql = args.shift();
+  return (...args: any): Promise<any> => new Promise((resolve, reject) => {
+    log.info('====== execute sql ======')
+    log.info(sql, args);
+    const callback: queryCallback = (err, result) => {
+      if (err) reject(err)
+      else resolve(result);
+    }
+    if (!sql) sql = args.shift();
 
-        pool.query(sql, ...args, callback);
-    });
+    pool.query(sql, ...args, callback);
+  });
 }
 
 /**
@@ -27,49 +27,49 @@ const exportDao = (sql: string) => {
  * ]);
  */
 const transaction = (list: any): Promise<any[]> => {
-    return new Promise((resolve, reject) => {
-        if (!Array.isArray(list) || !list.length) return reject('it needs a Array with sql')
-        pool.getConnection((err, connection) => {
-            if (err) return reject(err);
-            connection.beginTransaction(err => {
-                if (err) return reject(err);
-                log.info('============ begin execute transaction ============')
-                let rets: any[] = [];
-                return (function dispatch(i) {
-                    let args = list[i];
-                    if (!args) {//finally commit
-                        connection.commit(err => {
-                            if (err) {
-                                connection.rollback();
-                                connection.release();
-                                return reject(err);
-                            }
-                            log.info('============ success executed transaction ============')
-                            connection.release();
-                            resolve(rets);
-                        });
-                    } else {
-                        log.info(args);
-                        args = typeof args == 'string' ? [args] : args;
-                        const sql = args.shift();
-                        const callback: queryCallback = (error, ret) => {
-                            if (error) {
-                                connection.rollback();
-                                connection.release();
-                                return reject(error);
-                            }
-                            rets.push(ret);
-                            dispatch(i + 1);
-                        }
-                        connection.query(sql, ...args, callback);
-                    }
-                })(0);
+  return new Promise((resolve, reject) => {
+    if (!Array.isArray(list) || !list.length) return reject('it needs a Array with sql')
+    pool.getConnection((err, connection) => {
+      if (err) return reject(err);
+      connection.beginTransaction(err => {
+        if (err) return reject(err);
+        log.info('============ begin execute transaction ============')
+        let rets: any[] = [];
+        return (function dispatch(i) {
+          let args = list[i];
+          if (!args) {//finally commit
+            connection.commit(err => {
+              if (err) {
+                connection.rollback();
+                connection.release();
+                return reject(err);
+              }
+              log.info('============ success executed transaction ============')
+              connection.release();
+              resolve(rets);
             });
-        });
-    })
+          } else {
+            log.info(args);
+            args = typeof args == 'string' ? [args] : args;
+            const sql = args.shift();
+            const callback: queryCallback = (error, ret) => {
+              if (error) {
+                connection.rollback();
+                connection.release();
+                return reject(error);
+              }
+              rets.push(ret);
+              dispatch(i + 1);
+            }
+            connection.query(sql, ...args, callback);
+          }
+        })(0);
+      });
+    });
+  })
 }
 
 export {
-    exportDao,
-    transaction
+  exportDao,
+  transaction
 };

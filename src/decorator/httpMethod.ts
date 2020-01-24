@@ -7,15 +7,15 @@ import { ROUTER_MAP } from '../constant'
  * @return Decorator - 装饰器
  */
 function createMethodDecorator(method: string) {
-    // 装饰器接收路由 path 作为参数
-    return function httpMethodDecorator(path: string) {
-        return (proto: any, name: string) => {
-            const target = proto.constructor;
-            const routeMap = Reflect.getMetadata(ROUTER_MAP, target, 'method') || [];
-            routeMap.push({ name, method, path });
-            Reflect.defineMetadata(ROUTER_MAP, routeMap, target, 'method');
-        };
+  // 装饰器接收路由 path 作为参数
+  return function httpMethodDecorator(path: string) {
+    return (proto: any, name: string) => {
+      const target = proto.constructor;
+      const routeMap = Reflect.getMetadata(ROUTER_MAP, target, 'method') || [];
+      routeMap.push({ name, method, path });
+      Reflect.defineMetadata(ROUTER_MAP, routeMap, target, 'method');
     };
+  };
 }
 
 // 导出 http method 装饰器
