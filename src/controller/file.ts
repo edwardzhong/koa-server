@@ -28,8 +28,8 @@ export default class FileHandle {
   }
 
     /**
-     * 上传base64
      * @param  {[type]}   ctx  [description]
+     * 上传base64
      * 参数格式 {name:string;data:string}
      */
     async uploadBase64(ctx: Context) {
