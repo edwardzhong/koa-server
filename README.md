@@ -18,7 +18,7 @@ npm install
 ```bash
 npm start          # develop
 npm run build      # build
+npm run eslint     # eslint
 npm run server     # run production server
 npm run pm2        # pm2 monitor
 ```
-
