@@ -4,7 +4,7 @@ import { queryCallback } from 'mysql'
 const pool = getPool();
 
 const exportDao = (sql: string) => {
-  return (...args: any): Promise<any> => new Promise((resolve, reject) => {
+  return (...args: any[]): Promise<any> => new Promise((resolve, reject) => {
     log.info('====== execute sql ======')
     log.info(sql, args);
     const callback: queryCallback = (err, result) => {
@@ -26,7 +26,7 @@ const exportDao = (sql: string) => {
  *     'select * from user'
  * ]);
  */
-const transaction = (list: any): Promise<any[]> => {
+const transaction = (list: any[]): Promise<any[]> => {
   return new Promise((resolve, reject) => {
     if (!Array.isArray(list) || !list.length) return reject('it needs a Array with sql')
     pool.getConnection((err, connection) => {
