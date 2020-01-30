@@ -6,7 +6,8 @@ type ResData = {
     data?: any;
     err?: any;
 }
-type PlainObject = { [P: string]: any };
+// type PlainObject = { [P: string]: any };
+type PlainObject = Record<string, any>;
 type MysqlResult = {
     affectedRows?: number;
     insertId?: string;
@@ -21,10 +22,10 @@ type RouteMeta = {
 }
 
 export {
-  ResData,
-  MysqlResult,
-  PlainObject,
-  MiddleWare,
-  KoaFun,
-  RouteMeta
+    ResData,
+    MysqlResult,
+    PlainObject,
+    MiddleWare,
+    KoaFun,
+    RouteMeta
 }
