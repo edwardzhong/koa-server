@@ -22,10 +22,10 @@ type RouteMeta = {
 }
 
 export {
-    ResData,
-    MysqlResult,
-    PlainObject,
-    MiddleWare,
-    KoaFun,
-    RouteMeta
+  ResData,
+  MysqlResult,
+  PlainObject,
+  MiddleWare,
+  KoaFun,
+  RouteMeta
 }

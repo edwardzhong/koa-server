@@ -2,18 +2,17 @@ import { stringFormat } from '../common/util'
 import { transaction } from '../daos/common'
 import * as applyDao from '../daos/apply'
 import { post } from '../decorator/httpMethod'
+import jwt from '../decorator/jwt';
 import { Context } from 'koa';
 
 export default class Apply {
 
   @post('/apply')
+  @jwt()
   async apply(ctx: Context) {
     const form = ctx.request.body;
-    const token = await ctx.verify();
-    if (token.code !== 0) {
-      return ctx.body = token;
-    }
-    const ret = await applyDao.apply({ ...form, from_id: token.data.uid });
+    const token = ctx.state.token;
+    const ret = await applyDao.apply({ ...form, from_id: token.uid });
     if (!ret.affectedRows) {
       return ctx.body = {
         code: 2,
@@ -29,12 +28,9 @@ export default class Apply {
 
   async accept(ctx: Context) {
     const { id, friend_id } = ctx.request.body;
-    const token = await ctx.verify();
-    if (token.code !== 0) {
-      return ctx.body = token;
-    }
+    const token = ctx.state.token;
     const ret = await transaction([
-      ['update apply set status = 1 where id = ? and to_id = ?', [id, token.data.uid]],
+      ['update apply set status = 1 where id = ? and to_id = ?', [id, token.uid]],
       stringFormat("replace into user_friend values ('$1','$2'),('$2','$1')", token.uid, friend_id)
     ]);
     if (!ret[0].affectedRows || !ret[1].affectedRows) {
@@ -48,7 +44,7 @@ export default class Apply {
       message: '添加好友成功'
     };
   }
-    
+
   async acceptGroup(ctx: Context) {
     const { id, group_id, user_id } = ctx.request.body;
     const ret = await transaction([
@@ -69,11 +65,8 @@ export default class Apply {
 
   async reject(ctx: Context) {
     const { id } = ctx.request.body;
-    const token = await ctx.verify();
-    if (token.code !== 0) {
-      return ctx.body = token;
-    }
-    const ret = await applyDao.reply([{ status: 2 }, id, token.data.uid]);
+    const token = ctx.state.token;
+    const ret = await applyDao.reply([{ status: 2 }, id, token.uid]);
     if (!ret.affectedRows) {
       return ctx.body = {
         code: 2,
