@@ -1,6 +1,6 @@
 import crypto from 'crypto'
 import uuid from 'uuid/v1'
-import * as userDao from '../daos/user'
+import * as userDao from '../dao/user'
 import { Context } from 'koa';
 import { post } from '../decorator/httpMethod'
 

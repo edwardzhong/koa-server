@@ -1,6 +1,6 @@
 import mysql from 'mysql'
 import { stringFormat } from '../common/util'
-import * as userDao from '../daos/user'
+import * as userDao from '../dao/user'
 import { Context } from 'koa';
 import { get } from '../decorator/httpMethod';
 import jwt from '../decorator/jwt'

@@ -1,6 +1,6 @@
 import { stringFormat } from '../common/util'
-import { transaction } from '../daos/common'
-import * as applyDao from '../daos/apply'
+import { transaction } from '../dao/common'
+import * as applyDao from '../dao/apply'
 import { post } from '../decorator/httpMethod'
 import jwt from '../decorator/jwt';
 import { Context } from 'koa';
