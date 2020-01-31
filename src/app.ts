@@ -11,16 +11,15 @@ import koaRouter from 'koa-router'
 import favicon from 'koa-favicon'
 import socket from 'socket.io'
 
+import 'reflect-metadata'
+import { app as config } from './config'
 import log from './common/logger'
+import addSocket from './socket'
 import tpl from './middleware/tpl'
 import verify from './middleware/verify'
 import errorHandler from './middleware/error'
-import { app as config } from './config'
-import addSocket from './socket'
-import 'reflect-metadata'
 import { JWT_MAP, ROUTER_MAP } from './constant'
 import { RouteMeta } from './type'
-
 
 const app = new koa()
 const router = new koaRouter();
