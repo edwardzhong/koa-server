@@ -1,4 +1,3 @@
-import fs from 'fs'
 import path from 'path'
 import http from 'http'
 import koa from 'koa'
@@ -11,15 +10,12 @@ import koaRouter from 'koa-router'
 import favicon from 'koa-favicon'
 import socket from 'socket.io'
 
-import 'reflect-metadata'
 import { app as config } from './config'
 import log from './common/logger'
+import addRouter from './router'
 import addSocket from './socket'
 import tpl from './middleware/tpl'
-import verify from './middleware/verify'
 import errorHandler from './middleware/error'
-import { JWT_MAP, ROUTER_MAP } from './constant'
-import { RouteMeta } from './type'
 
 const app = new koa()
 const router = new koaRouter();
@@ -70,35 +66,7 @@ app.use(tpl({ path: baseDir + '/public' }));
 app.use(errorHandler());
 
 // add route
-// addRouters(router);
-const ctrPath = path.join(__dirname, 'controller');
-const modules: any[] = [];
-const verifyMap: RouteMeta[] = [];
-//扫描controller文件夹，加载所有controller
-fs.readdirSync(ctrPath).forEach(name => {
-  if (/^[^.]+?\.(t|j)s$/.test(name)) {
-    modules.push(require(path.join(ctrPath, name)).default)
-  }
-});
-// 结合meta数据添加路由 和 需要验证的路由
-modules.forEach(m => {
-  const routerMap: RouteMeta[] = Reflect.getMetadata(ROUTER_MAP, m, 'method') || [];
-  const jwtMap: RouteMeta[] = Reflect.getMetadata(JWT_MAP, m, 'method') || [];
-  if (routerMap.length) {
-    const ctr = new m();
-    routerMap.forEach(route => {
-      const { name, method, path } = route;
-      router[method](path, ctr[name]);
-      if (jwtMap.some(s => s.name === name)) {
-        verifyMap.push(route);
-      }
-    })
-  }
-})
-
-// json-web-token
-app.use(verify(verifyMap));
-// add routers
+addRouter(router);
 app.use(router.routes()).use(router.allowedMethods());
 
 // deal 404
@@ -130,16 +98,16 @@ if (!module.parent) {
   }
 
   /**
-     * koa app
-     */
+   * koa app
+   */
   app.listen(port);
   // http.createServer(app.callback()).listen(port);// does the same like: app.listen(port)
   log.info(`=== app server running on port ${port}===`);
   console.log('app server running at: http://localhost:%d', port);
 
   /**
-     * socket.io
-     */
+   * socket.io
+   */
   addSocket(socketServer);
   server.listen(socketPort);
   log.info(`=== socket listening on port ${socketPort} ===`)

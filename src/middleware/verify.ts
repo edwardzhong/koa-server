@@ -1,15 +1,15 @@
 import jsonWebToken from 'jsonwebtoken'
 import log from '../common/logger'
 import { app } from '../config';
-import { MiddleWare, RouteMeta } from '@/type';
+import { MiddleWare } from '@/type';
 
-const verify: MiddleWare = (metas: RouteMeta[]) => async (ctx, next) => {
+const verify: MiddleWare = (path: string, isVerify:boolean) => async (ctx, next) => {
   // 签发Token, 并添加到header中
   ctx.sign = (payload: { uid: string; email: string }, exp: number) => {
     const token = jsonWebToken.sign(payload, app.secret, { expiresIn: exp || app.exp });
     ctx.set('Authorization', `Bearer ${token}`);
   };
-  if (metas.some(m => m.path === ctx.path)) {
+  if (isVerify && path === ctx.path) {
     if (!ctx.header || !ctx.header.authorization) {
       ctx.status = 403;
       ctx.body = { code: 3, message: 'Authorization not exist' };

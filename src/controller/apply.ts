@@ -2,13 +2,11 @@ import { stringFormat } from '../common/util'
 import { transaction } from '../dao/common'
 import * as applyDao from '../dao/apply'
 import { post } from '../decorator/httpMethod'
-import jwt from '../decorator/jwt';
 import { Context } from 'koa';
 
 export default class Apply {
 
-  @post('/apply')
-  @jwt()
+  @post('/apply', true)
   async apply(ctx: Context) {
     const form = ctx.request.body;
     const token = ctx.state.token;

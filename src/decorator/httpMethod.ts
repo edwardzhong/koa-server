@@ -8,11 +8,11 @@ import { ROUTER_MAP } from '../constant'
  */
 function createMethodDecorator(method: string) {
   // 装饰器接收路由 path 作为参数
-  return function httpMethodDecorator(path: string) {
+  return function httpMethodDecorator(path: string, isVerify?: boolean) {
     return (proto: any, name: string) => {
       const target = proto.constructor;
       const routeMap = Reflect.getMetadata(ROUTER_MAP, target, 'method') || [];
-      routeMap.push({ name, method, path });
+      routeMap.push({ name, method, path, isVerify: !!isVerify });
       Reflect.defineMetadata(ROUTER_MAP, routeMap, target, 'method');
     };
   };

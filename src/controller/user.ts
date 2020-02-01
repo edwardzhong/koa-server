@@ -3,13 +3,11 @@ import { stringFormat } from '../common/util'
 import * as userDao from '../dao/user'
 import { Context } from 'koa';
 import { get } from '../decorator/httpMethod';
-import jwt from '../decorator/jwt'
 import { app } from '../config'
 import { cpus } from 'os'
 export default class User {
 
-  @jwt()
-  @get('/userinfo')
+  @get('/userinfo', true)
   async userInfo(ctx: Context) {
     const token = ctx.state.token;
     //返回 websocket 的端口
