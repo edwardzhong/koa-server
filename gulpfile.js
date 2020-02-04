@@ -27,8 +27,6 @@ function runNodemon() {
   });
 }
 
-// series   从左至右依次串行执行任务
-// parallel 并行执行任务
 const build = series(clean, toJs);
 task('build', build);
 exports.build = build;
