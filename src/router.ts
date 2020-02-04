@@ -8,7 +8,7 @@ import Router from 'koa-router'
 
 const addRouter = (router: Router) => {
   const ctrPath = path.join(__dirname, 'controller');
-  const modules: any[] = [];
+  const modules: ObjectConstructor[] = [];
   // 扫描controller文件夹，收集所有controller
   fs.readdirSync(ctrPath).forEach(name => {
     if (/^[^.]+?\.(t|j)s$/.test(name)) {
