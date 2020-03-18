@@ -1,4 +1,4 @@
-import { exportDao } from './common'
+import { exportDao } from '../common/db'
 import { PlainObject } from '@/type'
 
 // const userDao = exportDao({

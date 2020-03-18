@@ -1,4 +1,4 @@
-import { exportDao } from './common'
+import { exportDao } from '../common/db'
 import { MysqlResult, PlainObject } from '@/type';
 
 // const applyDao = exportDao({

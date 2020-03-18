@@ -1,5 +1,5 @@
 import { getPool } from "./dbPool"
-import log from '../common/logger'
+import log from './logger'
 import { queryCallback } from 'mysql'
 const pool = getPool();
 
@@ -12,7 +12,6 @@ const exportDao = (sql: string) => {
       else resolve(result);
     }
     if (!sql) sql = args.shift();
-
     pool.query(sql, ...args, callback);
   });
 }

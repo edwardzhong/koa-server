@@ -4,7 +4,7 @@
  */
 import mysql, { Pool } from 'mysql'
 import { db as dbConfig } from '../config'
-import log from '../common/logger'
+import log from './logger'
 let pool: Pool = null;
 
 /**
