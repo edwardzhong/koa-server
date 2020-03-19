@@ -6,6 +6,7 @@ type ResData = {
 	data?: any;
 	err?: any;
 }
+
 // type PlainObject = { [P: string]: any };
 type PlainObject = Record<string, any>;
 type MysqlResult = {
@@ -13,8 +14,6 @@ type MysqlResult = {
 	insertId?: string;
 } | PlainObject
 
-type KoaFun<T> = (ctx: Context, next?: Next) => Promise<T>
-type MiddleWare = (...arg: any[]) => KoaFun<void>
 type RouteMeta = {
 	name: string;
 	method: string;
@@ -22,11 +21,12 @@ type RouteMeta = {
 	isVerify: boolean;
 }
 
+type MiddleWare = (...arg: any[]) => (ctx: Context, next?: Next) => Promise<void>;
+
 export {
-  ResData,
-  MysqlResult,
-  PlainObject,
-  MiddleWare,
-  KoaFun,
-  RouteMeta
+	ResData,
+	MysqlResult,
+	PlainObject,
+	RouteMeta,
+	MiddleWare,
 }
