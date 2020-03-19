@@ -5,6 +5,7 @@ import { Context } from 'koa';
 import { get } from '../decorator/httpMethod';
 import { app } from '../config'
 import { cpus } from 'os'
+
 export default class User {
 
   @get('/userinfo', true)

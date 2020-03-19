@@ -11,7 +11,7 @@ let pool: Pool = null;
  * get the connection of database
  * 获取数据库连接
  */
-const getConnection = (callback: Function) => {
+export const getConnection = (callback: Function) => {
   if (!pool) {
     log.info("creating pool");
     pool = mysql.createPool(dbConfig);
@@ -29,15 +29,10 @@ const getConnection = (callback: Function) => {
  * get the connection pool of database
  * 获取数据库连接池
  */
-const getPool = () => {
+export const getPool = () => {
   if (!pool) {
     log.info("creating pool");
     pool = mysql.createPool(dbConfig);
   }
   return pool;
-}
-
-export {
-  getConnection,
-  getPool
 }

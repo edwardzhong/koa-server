@@ -1,5 +1,5 @@
 import { stringFormat } from '../common/util'
-import { transaction } from '../common/db'
+import { transaction } from '../common/dbHelper'
 import * as applyDao from '../dao/apply'
 import { post } from '../decorator/httpMethod'
 import { Context } from 'koa';
