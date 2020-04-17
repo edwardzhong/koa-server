@@ -14,6 +14,7 @@ const errorHandler: MiddleWare = () => async (ctx, next) => {
       message: '服务器错误',
     };
     if (ctx.app.env === 'development') {
+      obj.message = err.message;
       obj.err = err;
     }
     ctx.body = obj

@@ -3,6 +3,11 @@ import log from '../common/logger'
 import { app } from '../config';
 import { MiddleWare } from '@/type';
 
+/**
+ * jwt verify
+ * @param path 
+ * @param isVerify 
+ */
 const verify: MiddleWare = (path: string, isVerify:boolean) => async (ctx, next) => {
   // 签发Token, 并添加到header中
   ctx.sign = (payload: { uid: string; email: string }, exp: number) => {
