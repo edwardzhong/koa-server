@@ -3,8 +3,6 @@ import http from 'http'
 import koa from 'koa'
 import logger from 'koa-logger'
 import koaStatic from 'koa-static'
-import compress from 'koa-compress'
-import cors from 'koa2-cors'
 import koaBody from 'koa-body'
 import koaRouter from 'koa-router'
 import favicon from 'koa-favicon'
@@ -23,15 +21,6 @@ const server = http.createServer(app.callback())
 const socketServer = socket(server)
 const baseDir = path.normalize(__dirname + '/..')
 
-// gzip
-app.use(compress({
-  filter: function (content_type) {
-    return /text|javascript/i.test(content_type)
-  },
-  threshold: 2048,
-  flush: require('zlib').Z_SYNC_FLUSH
-}));
-
 // display access records
 app.use(logger());
 
@@ -49,15 +38,6 @@ app.use(koaBody({
 // set static directory
 app.use(koaStatic(path.join(baseDir, 'public'), { index: false }));
 app.use(favicon(path.join(baseDir, 'public/favicon.jpg')));
-
-//cors
-app.use(cors({
-  origin: config.client,// * 写明详细url才行
-  credentials: true,//将凭证暴露出来, 前端才能获取cookie
-  allowMethods: ['GET', 'POST', 'DELETE', 'PUT'],
-  exposeHeaders: ['Authorization'],// 将header字段expose出去，前端才能获取该header字段
-  allowHeaders: ['Content-Type', 'Authorization', 'Accept']// 允许添加到header的字段
-}));
 
 // set template engine
 app.use(tpl({ path: baseDir + '/public' }));
