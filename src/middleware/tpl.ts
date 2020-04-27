@@ -13,10 +13,9 @@ const tpl: MiddleWare = (opt: { path: string }) => async (ctx, next) => {
       if (existsSync(path) && statSync(path).isFile()) {
         ctx.body = readFileSync(path);
       } else {
-        const msg = 'template file not exist : ' + fileName;
-        log.error(msg);
+        log.error('template file not exist : ' + path);
         ctx.status = 404;
-        ctx.throw(404, msg);
+        ctx.throw(404, fileName);
       }
     } catch (err) {
       log.error(err);

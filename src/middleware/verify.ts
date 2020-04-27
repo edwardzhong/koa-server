@@ -1,7 +1,7 @@
 import jsonWebToken from 'jsonwebtoken'
 import log from '../common/logger'
 import { app } from '../config';
-import { MiddleWare } from '@/type';
+import { ResData, MiddleWare } from '@/type';
 
 /**
  * jwt verify
@@ -23,10 +23,14 @@ const verify: MiddleWare = (path: string, isVerify: boolean) => async (ctx, next
       try {
         ctx.state.token = await jsonWebToken.verify(credentials, app.secret);
       } catch (err) {//验证不通过的三种类型 name: TokenExpiredError(过期) | JsonWebTokenError(token解释错误) | NotBeforeError(还未到生效期)
+        // ctx.status = 403;
         err.url = ctx.url;
         log.error(err);
-        // ctx.status = 403;
-        ctx.body = { code: 403, err, msg: 'Authorization fail' };
+        let obj: ResData = { code: 403, msg: err.message };
+        if (ctx.app.env === 'development') {
+          obj.err = err;
+        }
+        ctx.body = obj;
       }
       //通过 jwt 校验, 转入下一个中间件
       if (ctx.state.token) await next();
