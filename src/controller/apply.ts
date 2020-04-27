@@ -14,12 +14,12 @@ export default class Apply {
     if (!ret.affectedRows) {
       return ctx.body = {
         code: 2,
-        message: '申请失败'
+        msg: '申请失败'
       };
     }
     return ctx.body = {
       code: 0,
-      message: '申请成功',
+      msg: '申请成功',
       data: ret.insertId
     };
   }
@@ -34,12 +34,12 @@ export default class Apply {
     if (!ret[0].affectedRows || !ret[1].affectedRows) {
       return ctx.body = {
         code: 2,
-        message: '添加好友失败'
+        msg: '添加好友失败'
       };
     }
     return ctx.body = {
       code: 0,
-      message: '添加好友成功'
+      msg: '添加好友成功'
     };
   }
 
@@ -52,12 +52,12 @@ export default class Apply {
     if (!ret[0].affectedRows || !ret[1].affectedRows) {
       return ctx.body = {
         code: 2,
-        message: '加入群组失败'
+        msg: '加入群组失败'
       };
     }
     return ctx.body = {
       code: 0,
-      message: '加入群组成功'
+      msg: '加入群组成功'
     };
   }
 
@@ -68,12 +68,12 @@ export default class Apply {
     if (!ret.affectedRows) {
       return ctx.body = {
         code: 2,
-        message: '操作失败'
+        msg: '操作失败'
       };
     }
     return ctx.body = {
       code: 0,
-      message: '操作成功'
+      msg: '操作成功'
     };
   }
 }

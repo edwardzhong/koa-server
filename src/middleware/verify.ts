@@ -8,28 +8,28 @@ import { MiddleWare } from '@/type';
  * @param path 
  * @param isVerify 
  */
-const verify: MiddleWare = (path: string, isVerify:boolean) => async (ctx, next) => {
+const verify: MiddleWare = (path: string, isVerify: boolean) => async (ctx, next) => {
   // 签发Token, 并添加到header中
-  ctx.sign = (payload: { uid: string; email: string }, exp: number) => {
+  ctx.sign = (payload: { uid: string; name: string }, exp: number) => {
     const token = jsonWebToken.sign(payload, app.secret, { expiresIn: exp || app.exp });
-    ctx.set('Authorization', `Bearer ${token}`);
+    ctx.set('Authorization', token);
   };
   if (isVerify && path === ctx.path) {
     if (!ctx.header || !ctx.header.authorization) {
-      ctx.status = 403;
-      ctx.body = { code: 3, message: 'Authorization not exist' };
+      // ctx.status = 403;
+      ctx.body = { code: 403, msg: 'Authorization not exist' };
     } else {
-      const parts = ctx.header.authorization.split(' ');
-      const credentials = parts.slice(-1)[0];
+      const credentials = ctx.header.authorization;
       try {
         ctx.state.token = await jsonWebToken.verify(credentials, app.secret);
-        await next();
       } catch (err) {//验证不通过的三种类型 name: TokenExpiredError(过期) | JsonWebTokenError(token解释错误) | NotBeforeError(还未到生效期)
         err.url = ctx.url;
         log.error(err);
-        ctx.status = 403;
-        ctx.body = { code: 3, err, message: 'Authorization fail' };
+        // ctx.status = 403;
+        ctx.body = { code: 403, err, msg: 'Authorization fail' };
       }
+      //通过 jwt 校验, 转入下一个中间件
+      if (ctx.state.token) await next();
     }
   } else {
     await next();

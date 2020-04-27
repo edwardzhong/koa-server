@@ -6,7 +6,7 @@ const pool = getPool();
 export const exportDao = (sql: string) => {
   return (...args: any[]): Promise<any> => new Promise((resolve, reject) => {
     log.info('====== execute sql ======')
-    log.info(sql, args);
+    log.info(sql, ...args);
     const callback: queryCallback = (err, result) => {
       if (err) reject(err)
       else resolve(result);

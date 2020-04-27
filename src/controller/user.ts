@@ -23,14 +23,14 @@ export default class User {
     if (!users.length) {
       return ctx.body = {
         code: 1,
-        message: '用户不存在'
+        msg: '用户不存在'
       };
     } else {
       return ctx.body = {
         code: 0,
         data: users[0],
         socketPort: port,
-        message: 'success'
+        msg: 'success'
       };
     }
   }
@@ -42,12 +42,12 @@ export default class User {
     if (!ret.affectedRows) {
       return ctx.body = {
         code: 2,
-        message: '更新失败'
+        msg: '更新失败'
       };
     }
     return ctx.body = {
       code: 0,
-      message: '更新成功'
+      msg: '更新成功'
     };
   }
 
@@ -59,12 +59,12 @@ export default class User {
     if (!ret.affectedRows) {
       return ctx.body = {
         code: 2,
-        message: '删除好友失败'
+        msg: '删除好友失败'
       };
     }
     return ctx.body = {
       code: 0,
-      message: '删除好友成功'
+      msg: '删除好友成功'
     };
   }
 
@@ -76,7 +76,7 @@ export default class User {
     const [users, groups] = await Promise.all([userDao.sql(sql), userDao.sql(gSql)]);
     return ctx.body = {
       code: 0,
-      message: '搜索成功',
+      msg: '搜索成功',
       data: { users, groups }
     };
   }

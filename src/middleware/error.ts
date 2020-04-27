@@ -11,10 +11,10 @@ const errorHandler: MiddleWare = () => async (ctx, next) => {
     log.error(err);
     let obj: ResData = {
       code: -1,
-      message: '服务器错误',
+      msg: '服务器错误',
     };
     if (ctx.app.env === 'development') {
-      obj.message = err.message;
+      obj.msg = err.message;
       obj.err = err;
     }
     ctx.body = obj

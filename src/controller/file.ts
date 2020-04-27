@@ -23,7 +23,7 @@ export default class FileHandle {
     ctx.body = {
       code: 0,
       data: `http://${app.host}:${app.port}/upload/${fileName}`,
-      message: 'success'
+      msg: 'success'
     }
   }
 
@@ -43,7 +43,7 @@ export default class FileHandle {
     ctx.body = {
       code: 0,
       data: `http://${app.host}:${app.port}/upload${fileName + ext}`,
-      message: 'success'
+      msg: 'success'
     };
   }
 

@@ -20,19 +20,19 @@ export default class Sign {
     if (!users.length) {
       return ctx.body = {
         code: 2,
-        message: '用户不存在'
+        msg: '用户不存在'
       };
     }
     if (users[0].hash_password !== encryptPass(password, users[0].salt)) {
       return ctx.body = {
         code: 3,
-        message: '密码错误'
+        msg: '密码错误'
       };
     }
     await ctx.sign({ uid: users[0].id, email });
     return ctx.body = {
       code: 0,
-      message: '登录成功',
+      msg: '登录成功',
       data: users[0]
     };
   }
@@ -47,7 +47,7 @@ export default class Sign {
     if (countRet[0].count > 0) {
       return ctx.body = {
         code: 2,
-        message: '该邮箱已经被注册！'
+        msg: '该邮箱已经被注册！'
       }
     }
     const id = uuid();
@@ -60,13 +60,13 @@ export default class Sign {
     if (!insertRet.affectedRows) {
       return ctx.body = {
         code: 3,
-        message: '注册失败！'
+        msg: '注册失败！'
       }
     }
     ctx.sign({ uid: id, email }); //注册成功后立即登陆
     return ctx.body = {
       code: 0,
-      message: '注册成功！',
+      msg: '注册成功！',
       data: { id, num, email, nick: email, signature: '', status: 0 }
     }
   }
