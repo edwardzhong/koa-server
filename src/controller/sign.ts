@@ -1,6 +1,6 @@
 import crypto from 'crypto'
 import uuid from 'uuid/v1'
-import * as userDao from '../dao/user'
+import * as dao from '../dao'
 import { Context } from 'koa';
 import { post } from '../decorator/httpMethod'
 
@@ -16,7 +16,7 @@ export default class Sign {
   @post('/login')
   async login (ctx: Context) {
     const { email, password } = ctx.request.body;
-    const users = await userDao.getUser({ email });
+    const users = await dao.getUser({ email });
     if (!users.length) {
       return ctx.body = {
         code: 2,
@@ -43,7 +43,7 @@ export default class Sign {
     const salt = makeSalt();
     const hash_password = encryptPass(password, salt);
 
-    const countRet = await userDao.count({ email });
+    const countRet = await dao.count({ email });
     if (countRet[0].count > 0) {
       return ctx.body = {
         code: 2,
@@ -52,11 +52,11 @@ export default class Sign {
     }
     const id = uuid();
     let num = 1000;
-    const numRet = await userDao.sql('select ifnull(MAX(num),1000)+1 as num from user');
+    const numRet = await dao.sql('select ifnull(MAX(num),1000)+1 as num from user');
     if (numRet) { num = numRet[0].num; }
 
     const form = { id, num, salt, hash_password, email, name: email, nick: email };
-    const insertRet = await userDao.insert(form);
+    const insertRet = await dao.insert(form);
     if (!insertRet.affectedRows) {
       return ctx.body = {
         code: 3,

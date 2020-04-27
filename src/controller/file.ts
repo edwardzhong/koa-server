@@ -4,6 +4,7 @@ import path from 'path'
 import http from 'http'
 import { Context } from 'koa';
 import { post } from '../decorator/httpMethod';
+import log from '../common/logger'
 
 export default class FileHandle {
   /**
@@ -19,7 +20,10 @@ export default class FileHandle {
     const filePath = path.normalize(__dirname + '/../..') + "/public/upload/" + fileName;
     const stream = fs.createWriteStream(filePath);//创建可写流
     fs.createReadStream(file.path).pipe(stream);
-    fs.unlinkSync(file.path);//删除file临时文件
+    //删除file临时文件
+    fs.unlink(file.path, err => {
+      if (err) log.error(err)
+    });
     ctx.body = {
       code: 0,
       data: `http://${app.host}:${app.port}/upload/${fileName}`,

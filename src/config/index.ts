@@ -23,6 +23,7 @@ export const db: PoolConfig = {
   password: "jianfeng",
   database: "chatdb",
   charset: 'utf8mb4',//utf8mb4才能保存emoji
+  // socketPath: '/var/lib/mysql/mysql.sock',
   multipleStatements: true,// 可同时查询多条语句, 但不能参数化传值
   connectionLimit: 100
 };
