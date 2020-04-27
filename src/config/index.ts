@@ -4,8 +4,6 @@ import { PoolConfig } from 'mysql';
  * app config
  */
 export const app = {
-  isDev: process.env.NODE_ENV == 'development',
-  host: "localhost",
   port: 3000,
   socketPort: 3010,
   secret: 'JEFFJWT',

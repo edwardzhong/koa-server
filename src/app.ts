@@ -32,7 +32,7 @@ app.use(koaBody({
   formLimit: 1024 * 1024 * 5,
   textLimit: 1024 * 1024 * 5,
   multipart: true,// 解析FormData数据
-  formidable: { uploadDir: path.join(baseDir, 'public/upload') }
+  formidable: { uploadDir: path.join(__dirname, 'upload') }
 }));
 
 // set static directory

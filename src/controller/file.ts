@@ -1,4 +1,3 @@
-import { app } from '../config'
 import fs from 'fs'
 import path from 'path'
 import http from 'http'
@@ -17,7 +16,7 @@ export default class FileHandle {
     const file = ctx.request.files.file;
     const dotPos = file.name.indexOf('.');
     const fileName = file.name.substr(0, dotPos) + new Date().getTime() + file.name.substr(dotPos);
-    const filePath = path.normalize(__dirname + '/../..') + "/public/upload/" + fileName;
+    const filePath = "/usr/image/" + fileName;
     const stream = fs.createWriteStream(filePath);//创建可写流
     fs.createReadStream(file.path).pipe(stream);
     //删除file临时文件
@@ -26,7 +25,7 @@ export default class FileHandle {
     });
     ctx.body = {
       code: 0,
-      data: `http://${app.host}:${app.port}/upload/${fileName}`,
+      data: `/image/${fileName}`,
       msg: 'success'
     }
   }
@@ -39,14 +38,14 @@ export default class FileHandle {
   async uploadBase64(ctx: Context) {
     const form = ctx.request.body;
     const { dir, name, ext } = path.parse(form.name);
-    const fileName = dir + '/' + name + new Date().getTime();
-    const filePath = path.normalize(__dirname + '/../..') + "/public/upload/" + fileName + ext;
+    const fileName = dir + '/' + name + new Date().getTime() + ext;
+    const filePath = "/usr/image/" + fileName;
     const base64Data = form.data.replace(/^data:image\/\w+;base64,/, "");
     const dataBuffer = Buffer.from(base64Data, 'base64');
     fs.writeFileSync(filePath, dataBuffer);
     ctx.body = {
       code: 0,
-      data: `http://${app.host}:${app.port}/upload${fileName + ext}`,
+      data: `/image/${fileName}`,
       msg: 'success'
     };
   }
