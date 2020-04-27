@@ -22,7 +22,7 @@ const verify: MiddleWare = (path: string, isVerify: boolean) => async (ctx, next
       const credentials = ctx.header.authorization;
       try {
         ctx.state.token = await jsonWebToken.verify(credentials, app.secret);
-      } catch (err) {//验证不通过的三种类型 name: TokenExpiredError(过期) | JsonWebTokenError(token解释错误) | NotBeforeError(还未到生效期)
+      } catch (err) {
         // ctx.status = 403;
         err.url = ctx.url;
         log.error(err);

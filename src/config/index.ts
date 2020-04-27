@@ -5,12 +5,11 @@ import { PoolConfig } from 'mysql';
  */
 export const app = {
   isDev: process.env.NODE_ENV == 'development',
-  client: 'http://localhost:4001',//允许访问接口的客户端地址
   host: "localhost",
   port: 3000,
   socketPort: 3010,
   secret: 'JEFFJWT',
-  exp: 60 * 60,
+  exp: 60 * 60 * 24,//1 hour  or Eg: 60, "2 days", "10h", "7d".
 };
 
 /**

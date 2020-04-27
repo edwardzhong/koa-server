@@ -11,7 +11,7 @@ const errorHandler: MiddleWare = () => async (ctx, next) => {
     log.error(err);
     let obj: ResData = {
       code: -1,
-      msg: '服务器错误',
+      msg: 'System Error',
     };
     if (ctx.app.env === 'development') {
       obj.msg = err.message;
