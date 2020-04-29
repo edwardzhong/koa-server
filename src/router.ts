@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import fs from 'fs'
 import path from 'path'
-import verify from './middleware/verify'
+import jwt from './middleware/jwt'
 import { ROUTER_MAP } from './constant'
 import { RouteMeta } from './type'
 import Router from 'koa-router'
@@ -22,7 +22,7 @@ const addRouter = (router: Router) => {
       const ctr = new m();
       routerMap.forEach(route => {
         const { name, method, path, isVerify } = route;
-        router[method](path, verify(path, isVerify), ctr[name]);
+        router[method](path, jwt(path, isVerify), ctr[name]);
       })
     }
   })

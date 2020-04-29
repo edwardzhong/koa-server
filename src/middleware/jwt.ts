@@ -8,7 +8,7 @@ import { ResData, MiddleWare } from '@/type';
  * @param path 
  * @param isVerify 
  */
-const verify: MiddleWare = (path: string, isVerify: boolean) => async (ctx, next) => {
+const jwt: MiddleWare = (path: string, isVerify: boolean) => async (ctx, next) => {
   // 签发Token, 并添加到header中
   ctx.sign = (payload: { uid: string; name: string }, exp: number) => {
     const token = jsonWebToken.sign(payload, app.secret, { expiresIn: exp || app.exp });
@@ -40,4 +40,4 @@ const verify: MiddleWare = (path: string, isVerify: boolean) => async (ctx, next
   }
 };
 
-export default verify;
+export default jwt;

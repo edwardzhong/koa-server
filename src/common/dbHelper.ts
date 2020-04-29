@@ -11,8 +11,8 @@ export const exportDao = (sql: string) => {
       if (err) reject(err)
       else resolve(result);
     }
-    if (!sql) sql = args.shift();
-    pool.query(sql, ...args, callback);
+    if (!sql) pool.query(args.shift(), callback);
+    else pool.query(sql, ...args, callback);
   });
 }
 
