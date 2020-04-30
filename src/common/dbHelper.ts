@@ -49,8 +49,8 @@ export const transaction = (list: any[]): Promise<any[]> => {
             });
           } else {
             log.info(args);
-            args = typeof args == 'string' ? [args] : args;
-            const sql = args.shift();
+            // args = typeof args == 'string' ? [args] : args;
+            // const sql = args.shift();
             const callback: queryCallback = (error, ret) => {
               if (error) {
                 connection.rollback();
@@ -60,7 +60,8 @@ export const transaction = (list: any[]): Promise<any[]> => {
               rets.push(ret);
               dispatch(i + 1);
             }
-            connection.query(sql, ...args, callback);
+            if (typeof args == 'string') connection.query(args, callback);
+            else connection.query(args.shift(), ...args, callback);
           }
         })(0);
       });
