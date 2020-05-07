@@ -40,7 +40,7 @@ app.use(koaStatic(path.join(baseDir, 'public'), { index: false }));
 app.use(favicon(path.join(baseDir, 'public/favicon.jpg')));
 
 // set template engine
-app.use(tpl({ path: baseDir + '/public' }));
+app.use(tpl({ path: path.join(baseDir, 'public') }));
 
 // handle the error
 app.use(errorHandler());

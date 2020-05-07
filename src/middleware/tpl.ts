@@ -1,4 +1,5 @@
-import { readFileSync, existsSync, statSync } from 'fs'
+import { existsSync, statSync, createReadStream } from 'fs'
+import path from 'path'
 import log from '../common/logger'
 import { MiddleWare } from '@/type'
 
@@ -9,11 +10,12 @@ const tpl: MiddleWare = (opt: { path: string }) => async (ctx, next) => {
   ctx.render = (fileName: string) => {
     ctx.type = 'text/html; charset=utf-8';
     try {
-      const path = opt.path + '/' + fileName;
-      if (existsSync(path) && statSync(path).isFile()) {
-        ctx.body = readFileSync(path);
+      const dir = path.join(opt.path, fileName);
+      if (existsSync(dir) && statSync(dir).isFile()) {
+        // ctx.body = readFileSync(dir);
+        ctx.body = createReadStream(dir);
       } else {
-        log.error('template file not exist : ' + path);
+        log.error('template file not exist : ' + dir);
         ctx.status = 404;
         ctx.throw(404, fileName);
       }
