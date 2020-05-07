@@ -10,23 +10,22 @@ const tpl: MiddleWare = (opt: { path: string }) => async (ctx, next) => {
   ctx.render = (fileName: string) => {
     ctx.type = 'text/html; charset=utf-8';
     try {
-      const dir = path.join(opt.path, fileName);
-      if (existsSync(dir) && statSync(dir).isFile()) {
-        // ctx.body = readFileSync(dir);
-        ctx.body = createReadStream(dir);
+      const file = path.join(opt.path, fileName);
+      if (existsSync(file) && statSync(file).isFile()) {
+        // ctx.body = readFileSync(file);
+        ctx.body = createReadStream(file);
       } else {
-        log.error('template file not exist : ' + dir);
+        const msg = 'template file not exist : ' + file;
+        log.error(msg);
         ctx.status = 404;
-        ctx.throw(404, fileName);
+        if (ctx.app.env === 'development') ctx.body = msg;
+        else ctx.throw(404, msg);
       }
     } catch (err) {
       log.error(err);
       ctx.status = 404;
-      if (ctx.app.env === 'development') {
-        ctx.body = err.message;
-      } else {
-        ctx.throw(404, err.message);
-      }
+      if (ctx.app.env === 'development') ctx.body = err.message;
+      else ctx.throw(404, err.message);
     }
   };
   await next();//注意要加上 await
