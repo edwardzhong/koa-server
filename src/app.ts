@@ -70,7 +70,8 @@ app.on('error', (err, ctx) => {
 });
 
 if (!module.parent) {
-  let { port, socketPort } = config;
+  const port = process.env.PORT;
+  let { socketPort } = config;
   //如果是pm2 cluster模式
   const instance = process.env.NODE_APP_INSTANCE;
   if (instance) {

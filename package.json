@@ -4,11 +4,12 @@
   "description": "node backend server",
   "main": "app.js",
   "scripts": {
-    "start": "gulp",
+    "start": "export PORT=3000 && gulp",
     "build": "gulp build",
     "eslint": "eslint --fix --ext .js,.ts src/",
-    "server": "export NODE_ENV=production && node dist/app",
-    "pm2": "pm2 start process.json"
+    "dev": "pm2 start ecosystem.config.js",
+    "production": "pm2 start ecosystem.config.js --env production",
+    "stop": "pm2 stop all"
   },
   "keywords": [
     "node",
@@ -30,7 +31,6 @@
     "koa-static": "^5.0.0",
     "log4js": "^4.5.1",
     "mysql": "^2.17.1",
-    "pm2": "^4.2.1",
     "reflect-metadata": "^0.1.13",
     "socket.io": "^2.2.0"
   },
@@ -54,6 +54,7 @@
     "gulp-nodemon": "^2.4.2",
     "gulp-typescript": "^6.0.0-alpha.1",
     "nodemon": "^2.0.2",
+    "pm2": "^4.4.0",
     "ts-node": "^8.6.2",
     "typescript": "^3.7.5"
   }
