@@ -1,28 +1,18 @@
 import path from 'path'
-import http from 'http'
 import koa from 'koa'
-import logger from 'koa-logger'
 import koaStatic from 'koa-static'
 import koaBody from 'koa-body'
 import koaRouter from 'koa-router'
 import favicon from 'koa-favicon'
-import socket from 'socket.io'
 
-import { app as config } from './config'
 import log from './common/logger'
 import addRouter from './router'
-import addSocket from './socket'
 import tpl from './middleware/tpl'
 import errorHandler from './middleware/error'
 
 const app = new koa()
 const router = new koaRouter();
-const server = http.createServer(app.callback())
-const socketServer = socket(server)
 const baseDir = path.normalize(__dirname + '/..')
-
-// display access records
-app.use(logger());
 
 // session
 
@@ -71,26 +61,8 @@ app.on('error', (err, ctx) => {
 
 if (!module.parent) {
   const port = process.env.PORT;
-  let { socketPort } = config;
-  //如果是pm2 cluster模式
-  const instance = process.env.NODE_APP_INSTANCE;
-  if (instance) {
-    socketPort += parseInt(instance, 10);
-  }
-
-  /**
-   * koa app
-   */
   app.listen(port);
   // http.createServer(app.callback()).listen(port);// does the same like: app.listen(port)
   log.info(`=== app server running on port ${port}===`);
   console.log('app server running at: http://localhost:%d', port);
-
-  /**
-   * socket.io
-   */
-  addSocket(socketServer);
-  server.listen(socketPort);
-  log.info(`=== socket listening on port ${socketPort} ===`)
-  console.log('socket server running at: http://localhost:%d', socketPort);
 }

@@ -2,10 +2,24 @@ import fs from 'fs'
 import path from 'path'
 import http from 'http'
 import { Context } from 'koa';
-import { post } from '../decorator/httpMethod';
+import { get, post } from '../decorator/httpMethod';
 import log from '../common/logger'
+const folder = path.normalize(__dirname + '/../../public');
 
-export default class FileHandle {
+export default class Common {
+
+  /**
+   * 检查jwt是否有效
+   * @param ctx Context
+   */
+  @get('/check', true)
+  async checkJwt(ctx: Context) {
+    ctx.body = {
+      code: 0,
+      msg: '登录有效'
+    };
+  }
+
   /**
    * 上传formData
    * @param ctx Context
@@ -16,7 +30,7 @@ export default class FileHandle {
     const file = ctx.request.files.file;
     const dotPos = file.name.indexOf('.');
     const fileName = file.name.substr(0, dotPos) + new Date().getTime() + file.name.substr(dotPos);
-    const filePath = "/usr/image/" + fileName;
+    const filePath = folder + fileName;
     const stream = fs.createWriteStream(filePath);//创建可写流
     fs.createReadStream(file.path).pipe(stream);
     //删除file临时文件
@@ -25,7 +39,7 @@ export default class FileHandle {
     });
     ctx.body = {
       code: 0,
-      data: `/image/${fileName}`,
+      data: filePath,
       msg: 'success'
     }
   }
@@ -39,13 +53,13 @@ export default class FileHandle {
     const form = ctx.request.body;
     const { dir, name, ext } = path.parse(form.name);
     const fileName = dir + '/' + name + new Date().getTime() + ext;
-    const filePath = "/usr/image/" + fileName;
+    const filePath = folder + fileName;
     const base64Data = form.data.replace(/^data:image\/\w+;base64,/, "");
     const dataBuffer = Buffer.from(base64Data, 'base64');
     fs.writeFileSync(filePath, dataBuffer);
     ctx.body = {
       code: 0,
-      data: `/image/${fileName}`,
+      data: filePath,
       msg: 'success'
     };
   }
@@ -87,19 +101,27 @@ export default class FileHandle {
     });
   }
 
-  /**
-   * download markdown file
-   * 下载 markdown
-   * @param  {[type]}   ctx  [description]
-   */
+
+  // /**
+  //  * download apply excel
+  //  * @param  {[type]}   ctx  [description]
+  //  */
+  // @get('/download')
   // async downloadFile(ctx: Context) {
-  // 	let articleId = ctx.query.id;
-  // 	if (!articleId) return;
-  // 	let [article] = await articleDao.getArticleById(articleId);
-  // 	if (article) {
-  // 		article.content = htmlDecode(article.content);
-  // 	}
-  // 	ctx.attachment(article.title + '.md');
-  // 	ctx.body = article.content;
+  //   const { ids } = ctx.request.query;
+  //   let list: any[];
+  //   if (!ids) {
+  //     list = await dao.getApply()
+  //   } else {
+  //     list = await dao.sql(`select * from apply where id in (${ids})`);
+  //   }
+  //   const data = [['机构', '用户名称', '联系方式', '合作区域', '合作形式', '提交时间']];
+  //   list.forEach(l => {
+  //     data.push([l.organ, l.name, l.contact, l.area, l.options.replace(/\s/g, '/'), new Date(l.create_date * 1000)])
+  //   });
+  //   const options = { '!cols': [{ wch: 20 }, { wch: 20 }, { wch: 20 }, { wch: 20 }, { wch: 30 }, { wch: 10 }] };
+  //   const buffer = xlsx.build([{ name: "合作列表", data }], options);
+  //   ctx.attachment('申请合作列表.xlsx');
+  //   ctx.body = buffer;
   // }
 }

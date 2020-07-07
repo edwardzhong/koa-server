@@ -1,0 +1,18 @@
+apps:
+  - script: ./dist/app.js
+    name: 'domo'
+    watch: ['dist']
+    log_date_format: 'YYYY - MM - DD HH: mm Z'
+    error_file: './logs/app_err.log'
+    out_file: './logs/app_out.log'
+    merge_logs: true
+    max_memory_restart: '200M'
+    cron_restart: '0 1 * * * '
+    exec_mode: 'cluster'
+    instances: 4
+    env:
+      PORT: 3000
+      NODE_ENV: development
+    env_production:
+      PORT: 3010
+      NODE_ENV: production

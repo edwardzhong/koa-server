@@ -1,2 +1,2 @@
 #!/bin/sh
-pm2 start process.json
+pm2 start ecosystem.config.js --env production

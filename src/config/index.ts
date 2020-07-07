@@ -4,8 +4,6 @@ import { PoolConfig } from 'mysql';
  * app config
  */
 export const app = {
-  port: 3000,
-  socketPort: 3010,
   secret: 'JEFFJWT',
   exp: 60 * 60 * 24,//1 hour  or Eg: 60, "2 days", "10h", "7d".
 };
