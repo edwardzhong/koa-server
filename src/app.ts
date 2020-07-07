@@ -43,7 +43,7 @@ app.use(router.routes()).use(router.allowedMethods());
 app.use(async ctx => {
   log.error(`404 ${ctx.message} : ${ctx.href}`);
   ctx.status = 404;
-  ctx.body = '404! page not found !';
+  ctx.body = '404! content not found !';
   // ctx.render('404.html');
 });
 
