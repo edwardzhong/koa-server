@@ -1,5 +1,5 @@
 import path from 'path'
-import koa from 'koa'
+import koa, { Context } from 'koa'
 import koaStatic from 'koa-static'
 import koaBody from 'koa-body'
 import koaRouter from 'koa-router'
@@ -40,27 +40,26 @@ addRouter(router);
 app.use(router.routes()).use(router.allowedMethods());
 
 // deal 404
-app.use(async ctx => {
+app.use(async (ctx: Context) => {
   log.error(`404 ${ctx.message} : ${ctx.href}`);
   ctx.status = 404;
   ctx.body = '404! content not found !';
-  // ctx.render('404.html');
 });
 
 // koa already had middleware to deal with the error, just register the error event
-app.on('error', (err, ctx) => {
+app.on('error', (err, ctx: Context) => {
   log.error(err);//log all errors
   ctx.status = 500;
-  ctx.statusText = 'Internal Server Error';
-  if (ctx.app.env === 'development') { //throw the error to frontEnd when in the develop mode
+  if (ctx.app.env !== 'development') { //throw the error to frontEnd when in the develop mode
     ctx.res.end(err.stack); //finish the response
-  } else {
-    ctx.render('Server Error');
-  }
+  } 
+  // else {
+  //   ctx.body = 'Server Error';
+  // }
 });
 
 if (!module.parent) {
-  const port = process.env.PORT;
+  const port = process.env.PORT || 3000;
   app.listen(port);
   // http.createServer(app.callback()).listen(port);// does the same like: app.listen(port)
   log.info(`=== app server running on port ${port}===`);
