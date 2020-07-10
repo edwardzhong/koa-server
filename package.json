@@ -30,7 +30,7 @@
     "log4js": "^4.5.1",
     "mysql": "^2.17.1",
     "reflect-metadata": "^0.1.13",
-    "socket.io": "^2.2.0"
+    "uuid": "^8.2.0"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^8.3.6",
@@ -41,7 +41,7 @@
     "@types/log4js": "^2.3.5",
     "@types/mysql": "^2.15.8",
     "@types/node": "^13.1.8",
-    "@types/uuid": "^3.4.6",
+    "@types/uuid": "^8.0.0",
     "@typescript-eslint/eslint-plugin": "^2.17.0",
     "@typescript-eslint/parser": "^2.17.0",
     "del": "^5.1.0",
@@ -50,7 +50,6 @@
     "gulp-nodemon": "^2.4.2",
     "gulp-typescript": "^6.0.0-alpha.1",
     "nodemon": "^2.0.2",
-    "pm2": "^4.4.0",
     "ts-node": "^8.6.2",
     "typescript": "^3.7.5"
   }

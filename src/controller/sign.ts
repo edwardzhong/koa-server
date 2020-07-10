@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import uuid from 'uuid/v1'
+import { v4 as uuid } from 'uuid'
 import * as dao from '../dao'
 import { Context } from 'koa';
 import { post } from '../decorator/httpMethod'
@@ -12,9 +12,9 @@ const encryptPass = (pass: string, salt: string) => crypto.createHash('md5').upd
 // };
 
 export default class Sign {
-    
+
   @post('/login')
-  async login (ctx: Context) {
+  async login(ctx: Context) {
     const { email, password } = ctx.request.body;
     const users = await dao.getUser({ email });
     if (!users.length) {
@@ -38,7 +38,7 @@ export default class Sign {
   }
 
   @post('/register')
-  async register (ctx: Context) {
+  async register(ctx: Context) {
     const { email, password } = ctx.request.body;
     const salt = makeSalt();
     const hash_password = encryptPass(password, salt);
@@ -51,11 +51,7 @@ export default class Sign {
       }
     }
     const id = uuid();
-    let num = 1000;
-    const numRet = await dao.sql('select ifnull(MAX(num),1000)+1 as num from user');
-    if (numRet) { num = numRet[0].num; }
-
-    const form = { id, num, salt, hash_password, email, name: email, nick: email };
+    const form = { id, salt, hash_password, email, name: email, nick: email };
     const insertRet = await dao.insert(form);
     if (!insertRet.affectedRows) {
       return ctx.body = {
@@ -67,7 +63,7 @@ export default class Sign {
     return ctx.body = {
       code: 0,
       msg: '注册成功！',
-      data: { id, num, email, nick: email, signature: '', status: 0 }
+      data: { id, email, nick: email, signature: '' }
     }
   }
 }
