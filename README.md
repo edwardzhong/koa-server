@@ -1,11 +1,11 @@
-## koa 后端项目模版
+## koa mysql 项目模版
 ### 基于以下组件
 * node 
 * koa2
+* mysql
 * gulp 
 * typescript 
 * json web token
-* socket.io
 * pm2
 * log4js
 
@@ -19,6 +19,6 @@ npm install
 npm start          # develop
 npm run build      # build
 npm run eslint     # eslint
-npm run server     # run production server
-npm run pm2        # pm2 monitor
+npm run production # run production server
+npm run stop       # stop production server
 ```
