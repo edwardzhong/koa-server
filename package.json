@@ -2,7 +2,7 @@
   "name": "koa-server",
   "version": "1.0.0",
   "description": "node backend server",
-  "main": "app.js",
+  "main": "./src/app.ts",
   "scripts": {
     "start": "export PORT=3000 && gulp",
     "build": "gulp build",
