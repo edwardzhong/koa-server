@@ -1,18 +1,18 @@
 /**
  * deep copy
- * @param {Object} p 
- * @param {Object} c 
+ * @param {Object} obj object
  */
-function deepCopy(p: object, c: object = {}): object {
-  for (let i in p) {
-    if (typeof p[i] === 'object') {
-      c[i] = (p[i].constructor === Array) ? [] : {};
-      deepCopy(p[i], c[i]);
-    } else if (typeof p[i] === 'function') {
-      c[i] = p[i].prototype.constructor;
-    } else c[i] = p[i];
+ function deepCopy(obj: any) {
+  let ret;
+  if (typeof obj === 'object') {
+      ret = Array.isArray(obj) ? [] : {};
+      for (const i in obj) {
+          ret[i] = typeof obj[i] === 'object' ? deepCopy(obj[i]) : obj[i];
+      }
+  } else {
+      ret = obj;
   }
-  return c;
+  return ret;
 }
 
 /**
