@@ -1,20 +1,24 @@
 ## koa mysql 项目模版
+
 ### 基于以下组件
-* node 
+
+* node
 * koa2
 * mysql
-* gulp 
-* typescript 
+* gulp
+* typescript
 * json web token
 * pm2
 * log4js
 
 ### 安装
+
 ```bash
 npm install
 ```
 
 ### 运行
+
 ```bash
 npm start          # develop
 npm run build      # build
